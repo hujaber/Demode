@@ -7,15 +7,46 @@
 //
 
 import UIKit
+import DrawerController
+import GoogleMaps
+import Alamofire
+import Fabric
+import Crashlytics
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var drawerController: DrawerController?
+    let googleMapsAPIKey = "AIzaSyA0SyEEHGL0aEWdd7hzxQaxlknLioDezUU"
+    
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+        prepareDrawer()
+        window = UIWindow.init(frame: UIScreen.main.bounds)
+        
+        let loginScreen = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainView") as! UINavigationController
+        if (User.getCurrentUser() != nil) {
+            window?.rootViewController = drawerController
+        } else {
+            window?.rootViewController = loginScreen
+        }
 
-
+        return true
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        UINavigationBar.appearance().barTintColor = UIColor.myBlueColor()
+        UINavigationBar.appearance().isTranslucent = false
+        UITabBar.appearance().tintColor = UIColor.myBlueColor()
+        window?.makeKeyAndVisible()
+        GMSServices.provideAPIKey(googleMapsAPIKey)
+        Fabric.with([Crashlytics.self])
+        UIApplication.shared.statusBarStyle = .lightContent
+
+
         return true
     }
 
@@ -38,7 +69,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
+    }
+    
+    // MARK: Custom Functions
+    
+    func prepareDrawer() {
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+        let viewController = storyBoard.instantiateViewController(withIdentifier: "CenterView") as! UITabBarController
+        let leftView = storyBoard.instantiateViewController(withIdentifier: "LeftView") as! UINavigationController
+        drawerController = DrawerController.init(centerViewController: viewController, leftDrawerViewController:leftView)
+        drawerController?.maximumLeftDrawerWidth = 240
+        drawerController?.openDrawerGestureModeMask = OpenDrawerGestureMode.bezelPanningCenterView
+        drawerController?.closeDrawerGestureModeMask = CloseDrawerGestureMode.all
+        drawerController?.shouldStretchDrawer = false
+        drawerController?.bezelRange = 50
+        drawerController?.animationVelocity = 500
     }
 
 
