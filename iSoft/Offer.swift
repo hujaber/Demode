@@ -16,7 +16,21 @@ class Offer: NSObject, NSCoding {
     var totalPrice: String!
     var discountRate: String!
     var mainImage: String?
-    static let config = Config(frontKind: .disk, backKind: .disk, expiry: .seconds(180000), maxSize: 1000000, maxObjects: 100000)
+    static let config = Config(
+        // Expiry date that will be applied by default for every added object
+        // if it's not overridden in the add(key: object: expiry: completion:) method
+        expiry: .date(Date().addingTimeInterval(100000)),
+        /// The maximum number of objects in memory the cache should hold
+        memoryCountLimit: 0,
+        /// The maximum total cost that the cache can hold before it starts evicting objects
+        memoryTotalCostLimit: 0,
+        /// Maximum size of the disk cache storage (in bytes)
+        maxDiskSize: 10000,
+        // Where to store the disk cache. If nil, it is placed in an automatically generated directory in Caches
+        cacheDirectory: NSSearchPathForDirectoriesInDomains(.documentDirectory,
+                                                            FileManager.SearchPathDomainMask.userDomainMask,
+                                                            true).first! + "/cache-in-documents"
+    )
     static let hybrid = HybridCache(name: "offers", config: config)
 
     init(withDictionary jsonDictionary: Dictionary<String, AnyObject>) {
@@ -52,11 +66,15 @@ class Offer: NSObject, NSCoding {
     
     static func saveOffers(offers: Array<Offer>) {
         let data = NSKeyedArchiver.archivedData(withRootObject: offers)
-        hybrid.add("offerData", object: data)
+        do {
+            try hybrid.addObject(data, forKey: "offerData")
+        } catch let error as Error {
+            print(error.localizedDescription)
+        }
     }
     
     static func getOffers(withClosure completionClusore: @escaping (Array<Offer>) ->()) {
-        hybrid.object("offerData") { (data: Data?) in
+        hybrid.async.object(forKey: "offerData") { (data: Data?) in
             DispatchQueue.main.async {
                 if data != nil {
                     let array: Array<Offer> = NSKeyedUnarchiver.unarchiveObject(with: data!) as! Array<Offer>

@@ -21,6 +21,7 @@ class ViewController: BaseViewController, UITableViewDelegate, UITableViewDataSo
     var imageSlideValues: Array<Offer>?
     var selectedMainID: String?
     var selectedSubID: String?
+    var selectedCategoryName: String?
     
     
     override func viewDidLoad() {
@@ -36,7 +37,6 @@ class ViewController: BaseViewController, UITableViewDelegate, UITableViewDataSo
         showLoader()
         APIRequests.fetchMainCategories { (results, success, error) in
             self.hideLoader()
-            print(results)
             if success {
                 if results.count > 0 {
                     self.tableValues = results
@@ -84,7 +84,7 @@ class ViewController: BaseViewController, UITableViewDelegate, UITableViewDataSo
         }
         slider.circular = true
         slider.slideshowInterval = 3
-        slider.backgroundColor = UIColor.navigationBarOffWhite()
+        slider.backgroundColor = UIColor.white
         slider.contentScaleMode = .scaleToFill
         self.tableView.tableHeaderView = slider;
     }
@@ -120,7 +120,6 @@ class ViewController: BaseViewController, UITableViewDelegate, UITableViewDataSo
             }
         } else {
             return 1
-            
         }
     }
     
@@ -145,7 +144,7 @@ class ViewController: BaseViewController, UITableViewDelegate, UITableViewDataSo
                 secondCell.preservesSuperviewLayoutMargins = false
                 secondCell.separatorInset = UIEdgeInsets.zero
                 secondCell.layoutMargins = UIEdgeInsets.zero
-
+                
                 
                 return secondCell
             }
@@ -155,7 +154,7 @@ class ViewController: BaseViewController, UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 160
+            return 200
         } else {
             return 44
         }
@@ -194,6 +193,7 @@ class ViewController: BaseViewController, UITableViewDelegate, UITableViewDataSo
                 selectedMainID = sections[indexPath.section].mainCategory.id
                 let subCat = sections[indexPath.section].subCategories[indexPath.row - 1] as! SubCategory
                 selectedSubID = subCat.id
+                selectedCategoryName = subCat.name
                 performSegue(withIdentifier: segueID, sender: self)
             }
         } else {
@@ -211,6 +211,7 @@ class ViewController: BaseViewController, UITableViewDelegate, UITableViewDataSo
             let vc = segue.destination as! ProductsViewController
             vc.mainCatID = selectedMainID!
             vc.subCatID = selectedSubID!
+            vc.title = selectedCategoryName!
         }
     }
 }
@@ -227,7 +228,8 @@ class MainCategoryCell: UITableViewCell {
         titleLabel.textColor = UIColor.white
         overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         titleLabel.alpha = 1.0
-
+        categoryImageView.kf.indicatorType = .activity
+        categoryImageView.contentMode = .scaleAspectFill
         let url = URL(string: section.mainCategory.mainImage!)!
         let resource = ImageResource.init(downloadURL: url)
         categoryImageView.kf.setImage(with: resource, placeholder: nil, options: [], progressBlock: nil, completionHandler: { (image, error, cachetype, url) in

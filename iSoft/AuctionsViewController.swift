@@ -12,6 +12,7 @@ import Kingfisher
 class AuctionsViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     var tableValues = Array<AuctionItem>()
+    var selectedItem: AuctionItem?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,7 @@ class AuctionsViewController: BaseViewController, UITableViewDelegate, UITableVi
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView.init()
-        tableView.estimatedRowHeight = 60
+        tableView.estimatedRowHeight = 70
         tableView.rowHeight = UITableViewAutomaticDimension
     }
     
@@ -48,7 +49,17 @@ class AuctionsViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedItem = tableValues[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "segueToAuctionDetails", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueToAuctionDetails" {
+            let vc = segue.destination as! AuctionDetailsViewController
+            vc.auctionId = selectedItem!.itemId!
+            
+        }
     }
 }
 
@@ -74,6 +85,8 @@ class AuctionCell: UITableViewCell {
             auctionImageView.kf.setImage(with: resource)
         }
     }
+    
+    
     
     
 }

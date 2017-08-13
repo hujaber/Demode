@@ -36,6 +36,11 @@ class FirstViewController: BaseViewController {
         navigationController?.isNavigationBarHidden = false
     }
     
+    override func viewDidLayoutSubviews() {
+        addBottomBorder(textField: emailTxtField)
+        addBottomBorder(textField: passwordTxtField)
+    }
+    
     func setupTextFields() {
         passwordTxtField.isSecureTextEntry = true
         passwordTxtField.borderStyle = .none
@@ -67,9 +72,16 @@ class FirstViewController: BaseViewController {
             if (!success) {
                 self.showAlert(title: "", message: errorMessage!)
             } else {
-                self.getAppDelegate().window?.rootViewController = self.getAppDelegate().drawerController
+                let tabBar: UITabBarController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CenterView") as! UITabBarController
+                self.getAppDelegate().window?.rootViewController = tabBar
             }
             
         }
     }
+    
+    @IBAction func skipLoginAction(_ sender: UIButton) {
+        UserDefaultsHelper.setDemoLogin(isDemoLogin: true)
+        getAppDelegate().window?.rootViewController = storyboard?.instantiateViewController(withIdentifier: "CenterView") as! UITabBarController
+    }
+    
 }

@@ -63,3 +63,69 @@ struct AuctionItem {
         userCanViewLots = (Int(viewLots!) == 1) ? true: false
     }
 }
+
+struct AuctionDetailsItem {
+    /*
+     "Product_ID": "29",
+     "Product_Code": "PRODUCT_6",
+     "Product_Title": "Product5",
+     "ShortDescription": "This is the first product",
+     "FullDescription": "Full desc for first product",
+     "CountryOfOrigin": "Lebanon",
+     "ManufactureDate": "2016",
+     "Barcode": "ewfewf3355",
+     "UOM": null,
+     "MainImage": "/webAPI/ImgDir/DemodeAppDB/stock/1.jpg",
+     "StartingPrice": "1000",
+     "Estimate": "2000",
+     "Aqty": "0",
+     "LOTID": "6",
+     "isSold": "0",
+     "SoldFor": "0",
+     "isCurrentLot": "0",
+     "AuctionID": "1"
+ */
+    var productID: String?
+    var productCode: String?
+    var productTitle: String?
+    var shortDescription: String?
+    var fullDescription: String?
+    var originCountry: String?
+    var manufactureDate: String?
+    var barCode: String?
+    var UOM: String?
+    var mainImageUrl: String?
+    var startingPrice: String?
+    var estimate: String?
+    var aQty: String?
+    var lotID: String?
+    var isSold: Bool
+    var soldFor: String?
+    var isCurrentLot: Bool
+    var auctionID: String?
+    
+    init(jsonDictionary: Dictionary<String, AnyObject>) {
+        productID = jsonDictionary["Product_ID"] as? String
+        productCode = jsonDictionary["Product_Code"] as? String
+        productTitle = jsonDictionary["Product_Title"] as? String
+        shortDescription = jsonDictionary["ShortDescription"] as? String
+        fullDescription = jsonDictionary["FullDescription"] as? String
+        originCountry = jsonDictionary["CountryOfOrigin"] as? String
+        manufactureDate = jsonDictionary["ManufactureDate"] as? String
+        barCode = jsonDictionary["Barcode"] as? String
+        UOM = jsonDictionary["UOM"] as? String
+        mainImageUrl = jsonDictionary["MainImage"] as? String
+        startingPrice = jsonDictionary["StartingPrice"] as? String
+        estimate = jsonDictionary["Estimate"] as? String
+        aQty = jsonDictionary["Aqty"] as? String
+        lotID = jsonDictionary["LOTID"] as? String
+        let sold = jsonDictionary["isSold"] as? String
+        isSold = Int(sold!) == 1 ? true: false
+        soldFor = jsonDictionary["SoldFor"] as? String
+        let currentLot = jsonDictionary["isCurrentLot"] as? String
+        isCurrentLot = Int(currentLot!) == 1 ? true: false
+        auctionID = jsonDictionary["AuctionID"] as? String
+    }
+    
+    
+}

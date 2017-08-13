@@ -12,10 +12,11 @@ import GoogleMaps
 import Alamofire
 import Fabric
 import Crashlytics
-
+import Firebase
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     var drawerController: DrawerController?
@@ -24,14 +25,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         prepareDrawer()
         window = UIWindow.init(frame: UIScreen.main.bounds)
+        let tabBar: UITabBarController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CenterView") as! UITabBarController
         
         let loginScreen = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainView") as! UINavigationController
         if (User.getCurrentUser() != nil) {
-            window?.rootViewController = drawerController
+            window?.rootViewController = tabBar
         } else {
             window?.rootViewController = loginScreen
         }
-
+        FirebaseApp.configure()
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().delegate = self
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: {_, _ in })
+        } else {
+            let settings: UIUserNotificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
+        application.registerForRemoteNotifications()
+        
         return true
     }
     
@@ -49,6 +61,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         return true
     }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Messaging.messaging().apnsToken = deviceToken
+    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -65,6 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
+        application.applicationIconBadgeNumber = 0
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
@@ -76,12 +93,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func prepareDrawer() {
         let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
-        let viewController = storyBoard.instantiateViewController(withIdentifier: "CenterView") as! UITabBarController
+        let viewController = storyBoard.instantiateViewController(withIdentifier: "StoreView") as! UINavigationController
         let leftView = storyBoard.instantiateViewController(withIdentifier: "LeftView") as! UINavigationController
         drawerController = DrawerController.init(centerViewController: viewController, leftDrawerViewController:leftView)
-        drawerController?.maximumLeftDrawerWidth = 240
-        drawerController?.openDrawerGestureModeMask = OpenDrawerGestureMode.bezelPanningCenterView
-        drawerController?.closeDrawerGestureModeMask = CloseDrawerGestureMode.all
+        drawerController?.maximumLeftDrawerWidth = 1
+       // drawerController?.openDrawerGestureModeMask = OpenDrawerGestureMode.bezelPanningCenterView
+       // drawerController?.closeDrawerGestureModeMask = CloseDrawerGestureMode.all
         drawerController?.shouldStretchDrawer = false
         drawerController?.bezelRange = 50
         drawerController?.animationVelocity = 500

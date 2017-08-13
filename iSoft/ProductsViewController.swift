@@ -34,8 +34,8 @@ class ProductsViewController: BaseViewController, UICollectionViewDelegate, UICo
         screenWidth = screenSize.width
         screenHeight = screenSize.height
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 3, right: 0)
-        layout.itemSize = CGSize(width: (screenWidth), height: (screenWidth/2))
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: (screenWidth), height: (screenHeight/2.2))
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
         collectionView.collectionViewLayout = layout
@@ -125,10 +125,12 @@ class ProductsViewController: BaseViewController, UICollectionViewDelegate, UICo
     
     func addToFavorites(product: Product) {
         if UserDefaultsHelper.saveProductToWishList(product: product).0 {
-            SVProgressHUD.setMaximumDismissTimeInterval(1.5)
-            SVProgressHUD.showSuccess(withStatus: "Added to wishlist")
+//            SVProgressHUD.setMaximumDismissTimeInterval(1.5)
+//            SVProgressHUD.showSuccess(withStatus: "Added to wishlist")
         } else {
-            SVProgressHUD.showError(withStatus: UserDefaultsHelper.saveProductToWishList(product: product).1!)
+            if !UserDefaultsHelper.removeProductFromWishList(product: product).0 {
+                showAlert(title: "", message: UserDefaultsHelper.removeProductFromWishList(product: product).1!)
+            }
         }
     }
 }

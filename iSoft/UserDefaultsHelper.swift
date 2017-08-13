@@ -57,6 +57,30 @@ class UserDefaultsHelper: NSObject {
         return (true, nil)
     }
     
+    class func removeProductFromWishList(product: Product) -> (Bool, String?) {
+        if isKeyPresentInUserDefaults(key: wishListKey) {
+            /*
+             let sequence = [1, 2, 3, 4]
+             var iterator = sequence.makeIterator()
+             
+             // next() will return the next element, or nil if it's reached the end of the sequence.
+             while let element = iterator.next() {
+             // do something with the element
+             }
+             */
+            let wishListData = UserDefaults.standard.object(forKey: wishListKey)
+            wishListArray = NSKeyedUnarchiver.unarchiveObject(with: wishListData as! Data) as! Array<Product>
+            wishListArray = wishListArray.filter({ (myproduct) -> Bool in
+                myproduct.id! != product.id!
+            })
+            let wishData = NSKeyedArchiver.archivedData(withRootObject: wishListArray)
+            UserDefaults.standard.set(wishData, forKey: wishListKey)
+            return (true, nil)
+        } else {
+            return (false, "An error occured while removing the item from favorites.")
+        }
+    }
+    
     class func getBasketProducts() -> Array<Product>? {
         if isKeyPresentInUserDefaults(key: basketKey) {
             let basketData =  UserDefaults.standard.object(forKey: basketKey)
@@ -93,6 +117,18 @@ class UserDefaultsHelper: NSObject {
     
     private class func isKeyPresentInUserDefaults(key: String) -> Bool {
         return UserDefaults.standard.object(forKey: key) != nil
+    }
+    
+    class func removeAllKeys() {
+        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+    }
+    
+    class func isDemoLogin() -> Bool {
+        return UserDefaults.standard.bool(forKey: "isDemoLogin")
+    }
+    
+    class func setDemoLogin(isDemoLogin: Bool) {
+        UserDefaults.standard.set(isDemoLogin, forKey: "isDemoLogin")
     }
     
 }

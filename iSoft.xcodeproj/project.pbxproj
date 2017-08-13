@@ -15,8 +15,11 @@
 		D72B795C1E22C845004145FB /* ProductsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72B795B1E22C845004145FB /* ProductsCollectionViewCell.swift */; };
 		D72E91811DD26DF000BDC5F8 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72E91801DD26DF000BDC5F8 /* Product.swift */; };
 		D73545FC1E2436DC00157C15 /* ProductImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73545FB1E2436DC00157C15 /* ProductImages.swift */; };
+		D7393BCC1EB7DA3700F52C9E /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7393BCB1EB7DA3700F52C9E /* MoreViewController.swift */; };
 		D73D24C21EAFBFEA00A70870 /* AuctionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73D24C11EAFBFEA00A70870 /* AuctionsViewController.swift */; };
 		D73D24C41EAFC0C900A70870 /* AuctionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73D24C31EAFC0C900A70870 /* AuctionItem.swift */; };
+		D73D24C61EB125A900A70870 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73D24C51EB125A900A70870 /* TabBarViewController.swift */; };
+		D73D24C81EB132C000A70870 /* AuctionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73D24C71EB132C000A70870 /* AuctionDetailsViewController.swift */; };
 		D73EE8B11DAAA9D100511692 /* LeftTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73EE8B01DAAA9D100511692 /* LeftTableViewController.swift */; };
 		D73EE8B31DAAB68000511692 /* ShoppingBagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73EE8B21DAAB68000511692 /* ShoppingBagViewController.swift */; };
 		D73EE8B51DAAB78500511692 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73EE8B41DAAB78500511692 /* BaseViewController.swift */; };
@@ -41,6 +44,8 @@
 		D7979C901EAC1F5500E12A1D /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7979C8F1EAC1F5500E12A1D /* NewsViewController.swift */; };
 		D7BA69131E429E86009CC934 /* BasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BA69121E429E86009CC934 /* BasketViewController.swift */; };
 		D7BA69171E43CA97009CC934 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BA69161E43CA97009CC934 /* UserDefaultsHelper.swift */; };
+		D7F4EF5B1F24D5FD0063BCD0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D7F4EF5A1F24D5FD0063BCD0 /* GoogleService-Info.plist */; };
+		D7F4EF5E1F24E6AB0063BCD0 /* PrepareForCheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F4EF5D1F24E6AB0063BCD0 /* PrepareForCheckoutViewController.swift */; };
 		D7FB74AB1DC67F8C0033B631 /* Dictionary+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FB74AA1DC67F8C0033B631 /* Dictionary+Custom.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,8 +60,11 @@
 		D72B795B1E22C845004145FB /* ProductsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsCollectionViewCell.swift; sourceTree = "<group>"; };
 		D72E91801DD26DF000BDC5F8 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		D73545FB1E2436DC00157C15 /* ProductImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductImages.swift; sourceTree = "<group>"; };
+		D7393BCB1EB7DA3700F52C9E /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		D73D24C11EAFBFEA00A70870 /* AuctionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuctionsViewController.swift; sourceTree = "<group>"; };
 		D73D24C31EAFC0C900A70870 /* AuctionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuctionItem.swift; sourceTree = "<group>"; };
+		D73D24C51EB125A900A70870 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		D73D24C71EB132C000A70870 /* AuctionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuctionDetailsViewController.swift; sourceTree = "<group>"; };
 		D73EE8B01DAAA9D100511692 /* LeftTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftTableViewController.swift; sourceTree = "<group>"; };
 		D73EE8B21DAAB68000511692 /* ShoppingBagViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingBagViewController.swift; sourceTree = "<group>"; };
 		D73EE8B41DAAB78500511692 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +91,9 @@
 		D7979C8F1EAC1F5500E12A1D /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		D7BA69121E429E86009CC934 /* BasketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketViewController.swift; sourceTree = "<group>"; };
 		D7BA69161E43CA97009CC934 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
+		D7F4EF5A1F24D5FD0063BCD0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D7F4EF5C1F24E1210063BCD0 /* iSoft.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iSoft.entitlements; sourceTree = "<group>"; };
+		D7F4EF5D1F24E6AB0063BCD0 /* PrepareForCheckoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrepareForCheckoutViewController.swift; sourceTree = "<group>"; };
 		D7FB74AA1DC67F8C0033B631 /* Dictionary+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Custom.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -127,14 +138,16 @@
 		D7278E021D972F2C006E4F17 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D7393BCA1EB7DA2B00F52C9E /* More */,
+				D7393BC91EB7DA1B00F52C9E /* Auctions */,
+				D7393BC81EB7DA1100F52C9E /* News */,
 				D750EE731EA68CFC0091D06A /* Authentication */,
 				D7BA69901E4BCE83009CC934 /* Basket */,
 				D73EE8B41DAAB78500511692 /* BaseViewController.swift */,
 				D7BA69151E43C3A5009CC934 /* Others */,
 				D7BA69141E43C395009CC934 /* Drawer */,
 				D771FE991DC933FA0096FFE5 /* Home */,
-				D7979C8F1EAC1F5500E12A1D /* NewsViewController.swift */,
-				D73D24C11EAFBFEA00A70870 /* AuctionsViewController.swift */,
+				D73D24C51EB125A900A70870 /* TabBarViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -153,6 +166,31 @@
 				D73D24C31EAFC0C900A70870 /* AuctionItem.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		D7393BC81EB7DA1100F52C9E /* News */ = {
+			isa = PBXGroup;
+			children = (
+				D7979C8F1EAC1F5500E12A1D /* NewsViewController.swift */,
+			);
+			name = News;
+			sourceTree = "<group>";
+		};
+		D7393BC91EB7DA1B00F52C9E /* Auctions */ = {
+			isa = PBXGroup;
+			children = (
+				D73D24C71EB132C000A70870 /* AuctionDetailsViewController.swift */,
+				D73D24C11EAFBFEA00A70870 /* AuctionsViewController.swift */,
+			);
+			name = Auctions;
+			sourceTree = "<group>";
+		};
+		D7393BCA1EB7DA2B00F52C9E /* More */ = {
+			isa = PBXGroup;
+			children = (
+				D7393BCB1EB7DA3700F52C9E /* MoreViewController.swift */,
+			);
+			name = More;
 			sourceTree = "<group>";
 		};
 		D73EE8B81DAAC78000511692 /* Categories */ = {
@@ -195,6 +233,7 @@
 		D75D51491D9656D1008A8EA2 /* iSoft */ = {
 			isa = PBXGroup;
 			children = (
+				D7F4EF5C1F24E1210063BCD0 /* iSoft.entitlements */,
 				D750EE711EA68A280091D06A /* Logo.pdf */,
 				D73EE8B81DAAC78000511692 /* Categories */,
 				D7278E031D972F33006E4F17 /* Model */,
@@ -205,6 +244,7 @@
 				D75D51511D9656D1008A8EA2 /* Assets.xcassets */,
 				D75D51531D9656D1008A8EA2 /* LaunchScreen.storyboard */,
 				D75D51561D9656D1008A8EA2 /* Info.plist */,
+				D7F4EF5A1F24D5FD0063BCD0 /* GoogleService-Info.plist */,
 				D72B795B1E22C845004145FB /* ProductsCollectionViewCell.swift */,
 				D7BA69161E43CA97009CC934 /* UserDefaultsHelper.swift */,
 			);
@@ -243,6 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				D7BA69121E429E86009CC934 /* BasketViewController.swift */,
+				D7F4EF5D1F24E6AB0063BCD0 /* PrepareForCheckoutViewController.swift */,
 			);
 			name = Basket;
 			sourceTree = "<group>";
@@ -286,6 +327,11 @@
 						DevelopmentTeam = SGAW4ZB949;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -312,6 +358,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7F4EF5B1F24D5FD0063BCD0 /* GoogleService-Info.plist in Resources */,
 				D75D51551D9656D1008A8EA2 /* LaunchScreen.storyboard in Resources */,
 				D750EE721EA68A280091D06A /* Logo.pdf in Resources */,
 				D75D51521D9656D1008A8EA2 /* Assets.xcassets in Resources */,
@@ -396,11 +443,13 @@
 				D73EE8B31DAAB68000511692 /* ShoppingBagViewController.swift in Sources */,
 				D75D514D1D9656D1008A8EA2 /* ViewController.swift in Sources */,
 				D73EE9351DB3B32C00511692 /* CG+Custom.swift in Sources */,
+				D73D24C81EB132C000A70870 /* AuctionDetailsViewController.swift in Sources */,
 				D73EE8BC1DAACBB700511692 /* FindStoreViewController.swift in Sources */,
 				D73EE9311DB3A22900511692 /* SubCategory.swift in Sources */,
 				D7979C901EAC1F5500E12A1D /* NewsViewController.swift in Sources */,
 				D771FE9B1DC934140096FFE5 /* ProductsViewController.swift in Sources */,
 				D7BA69171E43CA97009CC934 /* UserDefaultsHelper.swift in Sources */,
+				D7393BCC1EB7DA3700F52C9E /* MoreViewController.swift in Sources */,
 				D7278DFE1D965E52006E4F17 /* APIRequests.swift in Sources */,
 				D75D514B1D9656D1008A8EA2 /* AppDelegate.swift in Sources */,
 				D73EE8BE1DAACBBF00511692 /* AboutViewController.swift in Sources */,
@@ -417,6 +466,8 @@
 				D7BA69131E429E86009CC934 /* BasketViewController.swift in Sources */,
 				D7979C8E1EAB8FB000E12A1D /* NewsItem.swift in Sources */,
 				D73EE9081DB2F32E00511692 /* Category.swift in Sources */,
+				D7F4EF5E1F24E6AB0063BCD0 /* PrepareForCheckoutViewController.swift in Sources */,
+				D73D24C61EB125A900A70870 /* TabBarViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -543,11 +594,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = iSoft/iSoft.entitlements;
 				DEVELOPMENT_TEAM = SGAW4ZB949;
 				INFOPLIST_FILE = iSoft/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.isoft.demode;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hujaber.isoft.demode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -559,11 +611,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = iSoft/iSoft.entitlements;
 				DEVELOPMENT_TEAM = SGAW4ZB949;
 				INFOPLIST_FILE = iSoft/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.isoft.demode;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hujaber.isoft.demode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

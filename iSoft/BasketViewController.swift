@@ -52,8 +52,8 @@ class BasketViewController: BaseViewController, UITableViewDelegate, UITableView
     
     func prepareButton() {
         orderNowButton.setTitle("Order Now", for: .normal)
-        orderNowButton.setTitleColor(UIColor.black, for: .normal)
-        orderNowButton.backgroundColor = UIColor.navigationBarOffWhite()
+        orderNowButton.setTitleColor(UIColor.white, for: .normal)
+        orderNowButton.backgroundColor = UIColor.myBlueColor()
         orderNowButton.layer.cornerRadius = 7
     }
     
@@ -83,6 +83,9 @@ class BasketViewController: BaseViewController, UITableViewDelegate, UITableView
     }
     
     
+    @IBAction func toCheckoutAction(_ sender: UIButton) {
+        performSegue(withIdentifier: "segueToOrder", sender: self)
+    }
     
 
     func showAlertViewWithProduct(product: Product?) {
@@ -117,7 +120,6 @@ class BasketViewController: BaseViewController, UITableViewDelegate, UITableView
     }
     
     func setupAlertView(product: Product) {
-//        alertView.frame = CGRect(20, UIScreen.main.bounds.height/2 - UIScreen.main.bounds.height/6, UIScreen.main.bounds.width - 40, UIScreen.main.bounds.height/3)
         alertView.center = (navigationController?.view.center)!
         alertView.layer.cornerRadius = 7
         alertView.layer.borderColor = UIColor.black.cgColor
@@ -126,11 +128,15 @@ class BasketViewController: BaseViewController, UITableViewDelegate, UITableView
         alertPriceLabel.text = product.oldPrice
         alertQuantityTextField.text = product.quantity!
         alertProduct = product
-        let url = URL(string: APIUrl.mainURL + product.imageUrl!)
-        let resource = ImageResource.init(downloadURL: url!)
-        alertImageView.kf.setImage(with: resource, placeholder: nil, options: nil, progressBlock: nil) { (image, error, cacheType, url) in
-            
+        if let prodURL = product.imageUrl {
+            let url = URL(string: APIUrl.mainURL + prodURL)
+            let resource = ImageResource.init(downloadURL: url!)
+            alertImageView.kf.indicatorType = .activity
+            alertImageView.kf.setImage(with: resource, placeholder: nil, options: nil, progressBlock: nil) { (image, error, cacheType, url) in
+                
+            }
         }
+
     }
     
     func addBlurToView(enable: Bool) {
@@ -198,11 +204,15 @@ class BasketCell: UITableViewCell {
         quantityLabel.text = product.quantity!
         itemPriceLabel.text = product.oldPrice
         totalPriceLabel.text = "0000"
-        let url = URL(string: APIUrl.mainURL + product.imageUrl!)
-        let resource = ImageResource.init(downloadURL: url!)
-        productImageView.kf.setImage(with: resource, placeholder: nil, options: [], progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
-            
-        })
+        if let prodURL = product.imageUrl {
+            let url = URL(string: APIUrl.mainURL + prodURL)
+            let resource = ImageResource.init(downloadURL: url!)
+            productImageView.kf.indicatorType = .activity
+            productImageView.kf.setImage(with: resource, placeholder: nil, options: [], progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
+                
+            })
+        }
+
     }
 }
 

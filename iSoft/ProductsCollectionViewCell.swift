@@ -21,7 +21,9 @@ class ProductsCollectionViewCell: UICollectionViewCell {
     var delegate: ProductCellProtocol! = nil
     var cellProduct: Product?
     
+    @IBOutlet weak var favButton: UIButton!
     @IBOutlet weak var priceLabel: UILabel!
+    
     public func fillCellWithProduct(product: Product) {
         cellProduct = product
         titleLabel.text = product.title
@@ -34,17 +36,32 @@ class ProductsCollectionViewCell: UICollectionViewCell {
             let urlString = APIUrl.mainURL.appending(product.imageUrl!)
             let url = URL(string: urlString)!
             let resource = ImageResource.init(downloadURL: url)
+            imageView.kf.indicatorType = .activity
             imageView.kf.setImage(with: resource, placeholder: nil, options: [], progressBlock: nil, completionHandler: { (image, error, cachetype, url) in
                 
             })
         }
-
+        favButton.setImage(#imageLiteral(resourceName: "favBorder"), for: .normal)
+        if let savedFavs = UserDefaultsHelper.getWishlistProducts() {
+            for favProd in savedFavs {
+                if product.id! == favProd.id! {
+                    favButton.setImage(#imageLiteral(resourceName: "fav"), for: .normal)
+                }
+            }
+        }
+        
         titleLabel.sizeToFit()
         priceLabel.sizeToFit()
         
     }
     
     @IBAction func addToFavAction(_ sender: UIButton) {
+        if favButton.image(for: .normal) == #imageLiteral(resourceName: "fav") {
+            favButton.setImage(#imageLiteral(resourceName: "favBorder"), for: .normal)
+        } else {
+            favButton.setImage(#imageLiteral(resourceName: "fav"), for: .normal)
+        }
+        
         delegate.addToFavorites(product: self.cellProduct!)
     }
     

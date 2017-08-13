@@ -21,4 +21,5 @@ struct APIUrl {
     static let loginURL         = "/login.php"
     static let registerURL      = "/register.php"
     static let auctionURL       = "/Auction.php"
+    static let auctionDetailsURL = "/AuctionItems.php"
 }

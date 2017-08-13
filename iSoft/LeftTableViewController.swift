@@ -13,7 +13,7 @@ import UIKit
 class LeftTableViewController: UITableViewController {
     let cellId = "LeftMenuCell"
     var views: [AnyObject]?
-    var homeViewController: UITabBarController?
+    var homeViewController: UINavigationController?
     var shoppingBagView: UINavigationController?
     var wishListView: UINavigationController?
     var findStoreView: UINavigationController?
@@ -30,7 +30,7 @@ class LeftTableViewController: UITableViewController {
     
     func setupControllers() {
         views = Array<AnyObject>()
-        homeViewController = (self.storyboard?.instantiateViewController(withIdentifier: "CenterView") as! UITabBarController)
+        homeViewController = (self.storyboard?.instantiateViewController(withIdentifier: "StoreView") as! UINavigationController)
         views?.append(homeViewController!)
         shoppingBagView = (self.storyboard?.instantiateViewController(withIdentifier: "ShoppingBagView") as! UINavigationController)
         views?.append(shoppingBagView!)

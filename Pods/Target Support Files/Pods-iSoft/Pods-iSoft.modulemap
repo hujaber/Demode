@@ -1,0 +1,6 @@
+framework module Pods_iSoft {
+  umbrella header "Pods-iSoft-umbrella.h"
+
+  export *
+  module * { export * }
+}

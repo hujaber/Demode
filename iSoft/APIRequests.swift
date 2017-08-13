@@ -260,6 +260,29 @@ class APIRequests: NSObject {
             }
         }
     }
+    
+    class func getAuctionDetail(auctionId: String, completion: @escaping (Bool, Error?, String?, Array<AuctionDetailsItem>?) ->()) {
+        var params = parameters
+        params["auctionID"] = auctionId
+        Alamofire.request(myBaseURL.appending(APIUrl.auctionDetailsURL), method: .get, parameters: params).responseJSON { (response) in
+            if let JSON = response.result.value as! [String: AnyObject]! {
+                var resultsArray = Array<AuctionDetailsItem>()
+                if JSON[successKey] != nil {
+                    let success = JSON[successKey] as! String
+                    if success == "1" {
+                        let auctionsDetailsArray = JSON["results"] as! Array<[String: AnyObject]>
+                        for itemDict in auctionsDetailsArray {
+                            let auctionDetailsItem = AuctionDetailsItem.init(jsonDictionary: itemDict)
+                            resultsArray.append(auctionDetailsItem)
+                        }
+                        completion(true, nil, nil, resultsArray)
+                    } else {
+                        completion(false, response.result.error, JSON["message"] as? String, nil)
+                    }
+                }
+            }
+        }
+    }
 
 
     
