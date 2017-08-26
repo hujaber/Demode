@@ -9,7 +9,6 @@
 import UIKit
 import Alamofire
 
-
 class APIRequests: NSObject {
     //Public Variables
     static let baseURL  = "http://www.demode-lb.net/webAPI"
