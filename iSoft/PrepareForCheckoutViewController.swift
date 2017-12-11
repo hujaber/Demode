@@ -12,6 +12,9 @@ class PrepareForCheckoutViewController: BaseViewController, UITableViewDataSourc
     let cellId = "PQLCell"
     let prodCell = "prodCell"
     var tableValues = Array<Product>()
+    
+    //MARK: - UITextFields
+    
 
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -24,6 +27,21 @@ class PrepareForCheckoutViewController: BaseViewController, UITableViewDataSourc
 
     }
 
+    @IBAction func continueAction(_ sender: UIButton) {
+        if tableValues.count > 0 {
+            performSegue(withIdentifier: "segueToAddress", sender: self)
+        } else {
+            self.showAlert(title: "", message: "Please add products to the basket before proceeding")
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? AddressController {
+            vc.products = tableValues
+        }
+    }
+    
+    
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -50,12 +68,33 @@ class PrepareForCheckoutViewController: BaseViewController, UITableViewDataSourc
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let customView = UIView.init(frame: CGRect.init(0, 0, tableView.frame.width, 30))
         customView.backgroundColor = UIColor.black
+        let label = UILabel.init(frame: CGRect(0, 0, view.frame.width, 30))
+        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.textColor = .white
+        var totalPrice: Float = 0
+        for product in tableValues {
+            if let price = product.oldPrice {
+                let floatPrice = Float(price)
+                if let final = floatPrice {
+                    totalPrice = totalPrice + (final * product.quantity!.toFloat())
+                }
+            }
+        }
+        let price = "\(totalPrice)".addDollarSign()
+        label.text = "Total:\t\t\t" + price
+        customView.addSubview(label)
+        
         return customView
     }
     
 
 }
 
+extension String {
+    func toFloat() -> Float {
+        return Float(self)!
+    }
+}
 
 
 class ProdCell: UITableViewCell {
@@ -70,7 +109,7 @@ class ProdCell: UITableViewCell {
         let quantity = Int(product.quantity!)
         let price = Int(product.salesPrice!)
         let totalPrice = quantity! * price!
-        productPriceLabel.text = "\(totalPrice)"
+        productPriceLabel.text = "\(totalPrice)".addDollarSign()
     }
     
 }

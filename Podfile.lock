@@ -1,62 +1,60 @@
 PODS:
-  - Alamofire (4.5.0)
-  - Cache (3.3.0):
-    - SwiftHash (~> 1.4.0)
-  - Crashlytics (3.8.5):
-    - Fabric (~> 1.6.3)
-  - DrawerController (3.2.1):
-    - DrawerController/Core (= 3.2.1)
-    - DrawerController/DrawerVisualStates (= 3.2.1)
-  - DrawerController/Core (3.2.1)
-  - DrawerController/DrawerVisualStates (3.2.1):
+  - Alamofire (4.5.1)
+  - Cache (4.1.2)
+  - Crashlytics (3.9.3):
+    - Fabric (~> 1.7.2)
+  - DrawerController (4.0.0):
+    - DrawerController/Core (= 4.0.0)
+    - DrawerController/DrawerVisualStates (= 4.0.0)
+  - DrawerController/Core (4.0.0)
+  - DrawerController/DrawerVisualStates (4.0.0):
     - DrawerController/Core
-  - Fabric (1.6.12)
-  - Firebase/Core (4.0.4):
-    - FirebaseAnalytics (= 4.0.2)
-    - FirebaseCore (= 4.0.4)
-  - Firebase/Messaging (4.0.4):
+  - Fabric (1.7.2)
+  - Firebase/Core (4.5.0):
+    - FirebaseAnalytics (= 4.0.4)
+    - FirebaseCore (= 4.0.10)
+  - Firebase/Messaging (4.5.0):
     - Firebase/Core
-    - FirebaseMessaging (= 2.0.0)
-  - FirebaseAnalytics (4.0.2):
+    - FirebaseMessaging (= 2.0.6)
+  - FirebaseAnalytics (4.0.4):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseCore (4.0.4):
+    - nanopb (~> 0.3)
+  - FirebaseCore (4.0.10):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
     - nanopb (~> 0.3)
-  - FirebaseInstanceID (2.0.0):
-    - FirebaseCore (~> 4.0)
-  - FirebaseMessaging (2.0.0):
+  - FirebaseInstanceID (2.0.5)
+  - FirebaseMessaging (2.0.6):
     - FirebaseAnalytics (~> 4.0)
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/Logger (~> 2.1)
     - Protobuf (~> 3.1)
-  - GoogleMaps (2.3.1):
-    - GoogleMaps/Maps (= 2.3.1)
-  - GoogleMaps/Base (2.3.1)
-  - GoogleMaps/Maps (2.3.1):
+  - GoogleMaps (2.5.0):
+    - GoogleMaps/Maps (= 2.5.0)
+  - GoogleMaps/Base (2.5.0)
+  - GoogleMaps/Maps (2.5.0):
     - GoogleMaps/Base
-  - GoogleToolboxForMac/Defines (2.1.1)
-  - GoogleToolboxForMac/Logger (2.1.1):
-    - GoogleToolboxForMac/Defines (= 2.1.1)
-  - GoogleToolboxForMac/NSData+zlib (2.1.1):
-    - GoogleToolboxForMac/Defines (= 2.1.1)
-  - ImageSlideshow (1.3.2):
-    - ImageSlideshow/Core (= 1.3.2)
-  - ImageSlideshow/Core (1.3.2)
-  - Kingfisher (3.10.3)
+  - GoogleToolboxForMac/Defines (2.1.3)
+  - GoogleToolboxForMac/Logger (2.1.3):
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+  - GoogleToolboxForMac/NSData+zlib (2.1.3):
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+  - ImageSlideshow (1.4.1):
+    - ImageSlideshow/Core (= 1.4.1)
+  - ImageSlideshow/Core (1.4.1)
+  - Kingfisher (4.2.0)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - Protobuf (3.3.0)
+  - Protobuf (3.4.0)
   - SCLAlertView (0.7.0)
-  - SKPhotoBrowser (4.0.1)
+  - SKPhotoBrowser (5.0.0)
   - Spring (1.0.3)
-  - SVProgressHUD (2.1.2)
-  - SwiftHash (1.4.0)
+  - SVProgressHUD (2.2.2)
 
 DEPENDENCIES:
   - Alamofire
@@ -68,9 +66,9 @@ DEPENDENCIES:
   - Firebase/Messaging
   - GoogleMaps
   - ImageSlideshow
-  - Kingfisher (~> 3.0)
+  - Kingfisher
   - SCLAlertView
-  - SKPhotoBrowser (~> 4.0)
+  - SKPhotoBrowser
   - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift3`)
   - SVProgressHUD
 
@@ -85,28 +83,27 @@ CHECKOUT OPTIONS:
     :git: https://github.com/MengTo/Spring.git
 
 SPEC CHECKSUMS:
-  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
-  Cache: 871805a8a7268feac34f5c10c54506801f0bd4cd
-  Crashlytics: dfbae35ef22ca189240d230ad501feea4ee85d2d
-  DrawerController: d2f25c567a1786476d74bfe8cde9a5bdd39972a9
-  Fabric: f050464eac45a2ce5a8e6e6a07e977c0df32fe28
-  Firebase: 1492bf04e1b73a7353b4fb2cf5a20bac9692f341
-  FirebaseAnalytics: ad41720e3e67fc63fbe3d2948d3e26932a8de311
-  FirebaseCore: cfc042628ef9f20debe09c0eb683135fcd404cb4
-  FirebaseInstanceID: 9fbf536668f4d3f0880e7438456dabd1376e294b
-  FirebaseMessaging: 227406c05b0dc9290702d2e9f18ab5528f0c2cf2
-  GoogleMaps: c66a71058b9b1294bcdd5463a68e357fa50c079f
-  GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
-  ImageSlideshow: a68a76fc618ebd2b7481ce355ad67d7097203976
-  Kingfisher: a0ac82dc5bcf0388dd74b294cf2cc13730c63436
-  nanopb: 22bc080fa3955e2116b6ff3ee6c2cb3c15ab97cb
-  Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
+  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  Cache: bd0233fc688b5e83a27bcd87807db7e6f23adcc5
+  Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
+  DrawerController: bad219f1535b1ff71f06ceb0f9d4339751b60af4
+  Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
+  Firebase: d83d287bdb6b1c78320561482706d1fcfc8ddfc1
+  FirebaseAnalytics: 722b53c7b32bfc7806b06e0093a2f5180d4f2c5a
+  FirebaseCore: da5e8e372cb6046212739a4d81e42d32c22907cc
+  FirebaseInstanceID: f2b688c66b972f30d7fa9f5f9f91455454a03b47
+  FirebaseMessaging: 75d83375b0f7a9911568d7bdd1a1a8261cbcbdef
+  GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
+  GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
+  ImageSlideshow: 1bb0e610e28a71e8936d57265d882f61714a470b
+  Kingfisher: 9ee7e788d8ba07c3f21ce0d43f33cec310a4f781
+  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  Protobuf: 03eef2ee0b674770735cf79d9c4d3659cf6908e8
   SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
-  SKPhotoBrowser: 3a7c6fc02aa1620ab17253a47a49fafda46536e8
+  SKPhotoBrowser: fe936f878955a568c726bf05d14e1d2717d91ce0
   Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
-  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
-  SwiftHash: acf0f29032309a5c7a7f625595eade1aca97aca2
+  SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
 
-PODFILE CHECKSUM: 17008ff350f82450c01da0f0c13e7879df5d6b1a
+PODFILE CHECKSUM: 4bb2903d6184f2c865e22a8483a143a142772342
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.3.1

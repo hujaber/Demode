@@ -52,12 +52,12 @@ class FirstViewController: BaseViewController {
         
         emailTxtField.keyboardType = .emailAddress
         
-        emailTxtField.attributedPlaceholder = NSAttributedString.init(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.white])
-        passwordTxtField.attributedPlaceholder = NSAttributedString.init(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.white])
+        emailTxtField.attributedPlaceholder = NSAttributedString.init(string: "Email", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        passwordTxtField.attributedPlaceholder = NSAttributedString.init(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
         
     }
     
-    func dismissKeyboard() -> Void {
+    @objc func dismissKeyboard() -> Void {
         view.endEditing(true)
     }
 

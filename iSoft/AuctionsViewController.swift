@@ -16,8 +16,18 @@ class AuctionsViewController: BaseViewController, UITableViewDelegate, UITableVi
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
-        getAuctions()
+        let view = UIView(frame: self.view.frame)
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 100))
+        label.text = "Under Construction"
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.textColor = .black
+        view.addSubview(label)
+        label.center = view.center
+        self.view.addSubview(view)
+        tableView.isHidden = true
+//        setupTableView()
+//        getAuctions()
     }
     
     func getAuctions() {

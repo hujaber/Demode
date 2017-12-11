@@ -9,12 +9,15 @@
 /* Begin PBXBuildFile section */
 		8A474F600B6E4BACD816901A /* Pods_iSoft.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 566B4A9C891E72B165971C46 /* Pods_iSoft.framework */; };
 		D70946291EA7E90A00CD0EEA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70946281EA7E90A00CD0EEA /* User.swift */; };
+		D71945721FDB37A400F44C0A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D71945711FDB37A400F44C0A /* GoogleService-Info.plist */; };
+		D724C22C1FCE0B42009FBEE1 /* CodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D724C22B1FCE0B42009FBEE1 /* CodeController.swift */; };
 		D7278DFE1D965E52006E4F17 /* APIRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7278DFD1D965E52006E4F17 /* APIRequests.swift */; };
 		D7278E001D972E21006E4F17 /* APIUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7278DFF1D972E21006E4F17 /* APIUrl.swift */; };
 		D7278E051D972F4F006E4F17 /* Offer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7278E041D972F4F006E4F17 /* Offer.swift */; };
 		D72B795C1E22C845004145FB /* ProductsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72B795B1E22C845004145FB /* ProductsCollectionViewCell.swift */; };
 		D72E91811DD26DF000BDC5F8 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72E91801DD26DF000BDC5F8 /* Product.swift */; };
 		D73545FC1E2436DC00157C15 /* ProductImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73545FB1E2436DC00157C15 /* ProductImages.swift */; };
+		D7362DC91FD4B82D00A74164 /* Store.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7362DC81FD4B82D00A74164 /* Store.storyboard */; };
 		D7393BCC1EB7DA3700F52C9E /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7393BCB1EB7DA3700F52C9E /* MoreViewController.swift */; };
 		D73D24C21EAFBFEA00A70870 /* AuctionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73D24C11EAFBFEA00A70870 /* AuctionsViewController.swift */; };
 		D73D24C41EAFC0C900A70870 /* AuctionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73D24C31EAFC0C900A70870 /* AuctionItem.swift */; };
@@ -40,11 +43,12 @@
 		D75D51521D9656D1008A8EA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D75D51511D9656D1008A8EA2 /* Assets.xcassets */; };
 		D75D51551D9656D1008A8EA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D75D51531D9656D1008A8EA2 /* LaunchScreen.storyboard */; };
 		D771FE9B1DC934140096FFE5 /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D771FE9A1DC934140096FFE5 /* ProductsViewController.swift */; };
+		D79377461FD4BA3D00DDB2EF /* AddressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79377451FD4BA3D00DDB2EF /* AddressController.swift */; };
+		D79377481FD4BB2500DDB2EF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79377471FD4BB2500DDB2EF /* Extensions.swift */; };
 		D7979C8E1EAB8FB000E12A1D /* NewsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7979C8D1EAB8FB000E12A1D /* NewsItem.swift */; };
 		D7979C901EAC1F5500E12A1D /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7979C8F1EAC1F5500E12A1D /* NewsViewController.swift */; };
 		D7BA69131E429E86009CC934 /* BasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BA69121E429E86009CC934 /* BasketViewController.swift */; };
 		D7BA69171E43CA97009CC934 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BA69161E43CA97009CC934 /* UserDefaultsHelper.swift */; };
-		D7F4EF5B1F24D5FD0063BCD0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D7F4EF5A1F24D5FD0063BCD0 /* GoogleService-Info.plist */; };
 		D7F4EF5E1F24E6AB0063BCD0 /* PrepareForCheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F4EF5D1F24E6AB0063BCD0 /* PrepareForCheckoutViewController.swift */; };
 		D7FB74AB1DC67F8C0033B631 /* Dictionary+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FB74AA1DC67F8C0033B631 /* Dictionary+Custom.swift */; };
 /* End PBXBuildFile section */
@@ -54,12 +58,15 @@
 		A828097F70112BA734B6F972 /* Pods-iSoft.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iSoft.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iSoft/Pods-iSoft.debug.xcconfig"; sourceTree = "<group>"; };
 		B7A4DAB4E5E63DD68FFE5027 /* Pods-iSoft.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iSoft.release.xcconfig"; path = "Pods/Target Support Files/Pods-iSoft/Pods-iSoft.release.xcconfig"; sourceTree = "<group>"; };
 		D70946281EA7E90A00CD0EEA /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		D71945711FDB37A400F44C0A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D724C22B1FCE0B42009FBEE1 /* CodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeController.swift; sourceTree = "<group>"; };
 		D7278DFD1D965E52006E4F17 /* APIRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequests.swift; sourceTree = "<group>"; };
 		D7278DFF1D972E21006E4F17 /* APIUrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIUrl.swift; sourceTree = "<group>"; };
 		D7278E041D972F4F006E4F17 /* Offer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Offer.swift; sourceTree = "<group>"; };
 		D72B795B1E22C845004145FB /* ProductsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsCollectionViewCell.swift; sourceTree = "<group>"; };
 		D72E91801DD26DF000BDC5F8 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		D73545FB1E2436DC00157C15 /* ProductImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductImages.swift; sourceTree = "<group>"; };
+		D7362DC81FD4B82D00A74164 /* Store.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Store.storyboard; sourceTree = "<group>"; };
 		D7393BCB1EB7DA3700F52C9E /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		D73D24C11EAFBFEA00A70870 /* AuctionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuctionsViewController.swift; sourceTree = "<group>"; };
 		D73D24C31EAFC0C900A70870 /* AuctionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuctionItem.swift; sourceTree = "<group>"; };
@@ -87,11 +94,12 @@
 		D75D51541D9656D1008A8EA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D75D51561D9656D1008A8EA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D771FE9A1DC934140096FFE5 /* ProductsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsViewController.swift; sourceTree = "<group>"; };
+		D79377451FD4BA3D00DDB2EF /* AddressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressController.swift; sourceTree = "<group>"; };
+		D79377471FD4BB2500DDB2EF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D7979C8D1EAB8FB000E12A1D /* NewsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItem.swift; sourceTree = "<group>"; };
 		D7979C8F1EAC1F5500E12A1D /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		D7BA69121E429E86009CC934 /* BasketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketViewController.swift; sourceTree = "<group>"; };
 		D7BA69161E43CA97009CC934 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
-		D7F4EF5A1F24D5FD0063BCD0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D7F4EF5C1F24E1210063BCD0 /* iSoft.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iSoft.entitlements; sourceTree = "<group>"; };
 		D7F4EF5D1F24E6AB0063BCD0 /* PrepareForCheckoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrepareForCheckoutViewController.swift; sourceTree = "<group>"; };
 		D7FB74AA1DC67F8C0033B631 /* Dictionary+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Custom.swift"; sourceTree = "<group>"; };
@@ -193,14 +201,15 @@
 			name = More;
 			sourceTree = "<group>";
 		};
-		D73EE8B81DAAC78000511692 /* Categories */ = {
+		D73EE8B81DAAC78000511692 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				D73EE8B91DAAC79A00511692 /* UIColor+Custom.swift */,
 				D73EE9341DB3B32C00511692 /* CG+Custom.swift */,
 				D7FB74AA1DC67F8C0033B631 /* Dictionary+Custom.swift */,
+				D79377471FD4BB2500DDB2EF /* Extensions.swift */,
 			);
-			name = Categories;
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		D750EE731EA68CFC0091D06A /* Authentication */ = {
@@ -208,6 +217,7 @@
 			children = (
 				D750EE741EA68D1F0091D06A /* FirstViewController.swift */,
 				D750EE761EA69BB90091D06A /* RegisterViewController.swift */,
+				D724C22B1FCE0B42009FBEE1 /* CodeController.swift */,
 			);
 			name = Authentication;
 			sourceTree = "<group>";
@@ -235,16 +245,17 @@
 			children = (
 				D7F4EF5C1F24E1210063BCD0 /* iSoft.entitlements */,
 				D750EE711EA68A280091D06A /* Logo.pdf */,
-				D73EE8B81DAAC78000511692 /* Categories */,
+				D73EE8B81DAAC78000511692 /* Extensions */,
 				D7278E031D972F33006E4F17 /* Model */,
 				D7278E021D972F2C006E4F17 /* Controllers */,
 				D7278E011D972F1E006E4F17 /* APIHelpers */,
 				D75D514A1D9656D1008A8EA2 /* AppDelegate.swift */,
 				D75D514E1D9656D1008A8EA2 /* Main.storyboard */,
+				D7362DC81FD4B82D00A74164 /* Store.storyboard */,
 				D75D51511D9656D1008A8EA2 /* Assets.xcassets */,
 				D75D51531D9656D1008A8EA2 /* LaunchScreen.storyboard */,
+				D71945711FDB37A400F44C0A /* GoogleService-Info.plist */,
 				D75D51561D9656D1008A8EA2 /* Info.plist */,
-				D7F4EF5A1F24D5FD0063BCD0 /* GoogleService-Info.plist */,
 				D72B795B1E22C845004145FB /* ProductsCollectionViewCell.swift */,
 				D7BA69161E43CA97009CC934 /* UserDefaultsHelper.swift */,
 			);
@@ -284,6 +295,7 @@
 			children = (
 				D7BA69121E429E86009CC934 /* BasketViewController.swift */,
 				D7F4EF5D1F24E6AB0063BCD0 /* PrepareForCheckoutViewController.swift */,
+				D79377451FD4BA3D00DDB2EF /* AddressController.swift */,
 			);
 			name = Basket;
 			sourceTree = "<group>";
@@ -319,12 +331,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "Hussein Jaber";
 				TargetAttributes = {
 					D75D51461D9656D1008A8EA2 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = SGAW4ZB949;
+						DevelopmentTeam = 6W739W37Y3;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -358,11 +370,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7F4EF5B1F24D5FD0063BCD0 /* GoogleService-Info.plist in Resources */,
+				D7362DC91FD4B82D00A74164 /* Store.storyboard in Resources */,
 				D75D51551D9656D1008A8EA2 /* LaunchScreen.storyboard in Resources */,
 				D750EE721EA68A280091D06A /* Logo.pdf in Resources */,
 				D75D51521D9656D1008A8EA2 /* Assets.xcassets in Resources */,
 				D75D51501D9656D1008A8EA2 /* Main.storyboard in Resources */,
+				D71945721FDB37A400F44C0A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,13 +388,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-iSoft-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D72E917F1DD131EA00BDC5F8 /* ShellScript */ = {
@@ -403,9 +419,34 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-iSoft/Pods-iSoft-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
+				"${BUILT_PRODUCTS_DIR}/DrawerController/DrawerController.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/ImageSlideshow/ImageSlideshow.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SCLAlertView/SCLAlertView.framework",
+				"${BUILT_PRODUCTS_DIR}/SKPhotoBrowser/SKPhotoBrowser.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/Spring/Spring.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DrawerController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ImageSlideshow.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCLAlertView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SKPhotoBrowser.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Spring.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -418,9 +459,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-iSoft/Pods-iSoft-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -442,11 +486,13 @@
 				D7278E001D972E21006E4F17 /* APIUrl.swift in Sources */,
 				D73EE8B31DAAB68000511692 /* ShoppingBagViewController.swift in Sources */,
 				D75D514D1D9656D1008A8EA2 /* ViewController.swift in Sources */,
+				D79377461FD4BA3D00DDB2EF /* AddressController.swift in Sources */,
 				D73EE9351DB3B32C00511692 /* CG+Custom.swift in Sources */,
 				D73D24C81EB132C000A70870 /* AuctionDetailsViewController.swift in Sources */,
 				D73EE8BC1DAACBB700511692 /* FindStoreViewController.swift in Sources */,
 				D73EE9311DB3A22900511692 /* SubCategory.swift in Sources */,
 				D7979C901EAC1F5500E12A1D /* NewsViewController.swift in Sources */,
+				D79377481FD4BB2500DDB2EF /* Extensions.swift in Sources */,
 				D771FE9B1DC934140096FFE5 /* ProductsViewController.swift in Sources */,
 				D7BA69171E43CA97009CC934 /* UserDefaultsHelper.swift in Sources */,
 				D7393BCC1EB7DA3700F52C9E /* MoreViewController.swift in Sources */,
@@ -465,6 +511,7 @@
 				D7278E051D972F4F006E4F17 /* Offer.swift in Sources */,
 				D7BA69131E429E86009CC934 /* BasketViewController.swift in Sources */,
 				D7979C8E1EAB8FB000E12A1D /* NewsItem.swift in Sources */,
+				D724C22C1FCE0B42009FBEE1 /* CodeController.swift in Sources */,
 				D73EE9081DB2F32E00511692 /* Category.swift in Sources */,
 				D7F4EF5E1F24E6AB0063BCD0 /* PrepareForCheckoutViewController.swift in Sources */,
 				D73D24C61EB125A900A70870 /* TabBarViewController.swift in Sources */,
@@ -502,7 +549,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -510,7 +559,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -540,6 +593,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -553,7 +607,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -561,7 +617,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -583,6 +643,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -595,13 +656,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = iSoft/iSoft.entitlements;
-				DEVELOPMENT_TEAM = SGAW4ZB949;
+				DEVELOPMENT_TEAM = 6W739W37Y3;
 				INFOPLIST_FILE = iSoft/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hujaber.isoft.demode;
+				PRODUCT_BUNDLE_IDENTIFIER = com.demode.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -612,13 +673,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = iSoft/iSoft.entitlements;
-				DEVELOPMENT_TEAM = SGAW4ZB949;
+				DEVELOPMENT_TEAM = 6W739W37Y3;
 				INFOPLIST_FILE = iSoft/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hujaber.isoft.demode;
+				PRODUCT_BUNDLE_IDENTIFIER = com.demode.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

@@ -74,13 +74,16 @@ class ViewController: BaseViewController, UITableViewDelegate, UITableViewDataSo
         let slider = ImageSlideshow.init(frame: CGRect.init(0, 0, tableView.frame.size.width, 200))
         var imageArray = Array<ImageSource>()
         for offer in imageSlideValues! {
-            let imageURL = APIUrl.mainURL.appending(offer.mainImage!)
-            ImageDownloader.default.downloadImage(with: URL.init(string: imageURL)!, options: [], progressBlock: nil, completionHandler: { (image, error, url, data) in
-                if image != nil {
-                    imageArray.append(ImageSource(image: image!))
-                }
-                slider.setImageInputs(imageArray)
-            })
+            if let url = offer.mainImage {
+                let imageURL = APIUrl.mainURL.appending(url)
+                ImageDownloader.default.downloadImage(with: URL.init(string: imageURL)!, options: [], progressBlock: nil, completionHandler: { (image, error, url, data) in
+                    if image != nil {
+                        imageArray.append(ImageSource(image: image!))
+                    }
+                    slider.setImageInputs(imageArray)
+                })
+            }
+
         }
         slider.circular = true
         slider.slideshowInterval = 3
@@ -166,27 +169,35 @@ class ViewController: BaseViewController, UITableViewDelegate, UITableViewDataSo
                 tableView.deselectRow(at: indexPath, animated: true)
                 let section = indexPath.section
                 let currentlyExpanded = expandedSections.contains(section)
-                var rows = Int()
-                var tmpArray = [IndexPath]()
-                if currentlyExpanded {
-                    rows = (tableView.dataSource?.tableView(tableView, numberOfRowsInSection: section))!
-                    expandedSections.remove(section)
+                if sections[section].subCategories.count == 0 {
+                    selectedMainID = "0"
+                    selectedSubID = sections[section].mainCategory.id
+                    selectedCategoryName = sections[section].mainCategory.name
+                    self.performSegue(withIdentifier: segueID, sender: self)
                 } else {
-                    expandedSections.insert(section)
-                    rows = (tableView.dataSource?.tableView(tableView, numberOfRowsInSection: section))!
+                    var rows = Int()
+                    var tmpArray = [IndexPath]()
+                    if currentlyExpanded {
+                        rows = (tableView.dataSource?.tableView(tableView, numberOfRowsInSection: section))!
+                        expandedSections.remove(section)
+                    } else {
+                        expandedSections.insert(section)
+                        rows = (tableView.dataSource?.tableView(tableView, numberOfRowsInSection: section))!
+                    }
+                    
+                    for i in 1..<rows {
+                        let tmpIndexPath = IndexPath(row: i, section: section)
+                        tmpArray.append(tmpIndexPath)
+                    }
+                    
+                    if currentlyExpanded {
+                        tableView.deleteRows(at: tmpArray, with: .none)
+                    } else {
+                        tableView.insertRows(at: tmpArray, with: .none)
+                        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+                    }
                 }
-                
-                for i in 1..<rows {
-                    let tmpIndexPath = IndexPath(row: i, section: section)
-                    tmpArray.append(tmpIndexPath)
-                }
-                
-                if currentlyExpanded {
-                    tableView.deleteRows(at: tmpArray, with: .none)
-                } else {
-                    tableView.insertRows(at: tmpArray, with: .none)
-                    tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-                }
+
             } else {
                 tableView.deselectRow(at: indexPath, animated: true)
                 print("\(indexPath.section) \(indexPath.row)")
@@ -211,7 +222,7 @@ class ViewController: BaseViewController, UITableViewDelegate, UITableViewDataSo
             let vc = segue.destination as! ProductsViewController
             vc.mainCatID = selectedMainID!
             vc.subCatID = selectedSubID!
-            vc.title = selectedCategoryName!
+            //vc.title = selectedCategoryName!
         }
     }
 }
@@ -230,12 +241,14 @@ class MainCategoryCell: UITableViewCell {
         titleLabel.alpha = 1.0
         categoryImageView.kf.indicatorType = .activity
         categoryImageView.contentMode = .scaleAspectFill
-        let url = URL(string: section.mainCategory.mainImage!)!
-        let resource = ImageResource.init(downloadURL: url)
-        categoryImageView.kf.setImage(with: resource, placeholder: nil, options: [], progressBlock: nil, completionHandler: { (image, error, cachetype, url) in
-        })
-
+        if let mainImage = section.mainCategory.mainImage {
+            let url = URL(string: mainImage)!
+            let resource = ImageResource.init(downloadURL: url)
+            categoryImageView.kf.setImage(with: resource, placeholder: nil, options: [], progressBlock: nil, completionHandler: { (image, error, cachetype, url) in
+            })
+        } else {
+            categoryImageView.kf.setImage(with: nil)
+        }
     }
-    
 }
 

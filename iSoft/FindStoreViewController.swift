@@ -15,12 +15,12 @@ class FindStoreViewController: BaseViewController {
         super.viewDidLoad()
         self.title = "Find a Store"
         mapView = view as? GMSMapView
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        //33.843556, 35.497529
+        let location = CLLocationCoordinate2D(latitude: 33.843556, longitude: 35.497529)
+        let marker = GMSMarker(position: location)
+        marker.snippet = "Assaha Hotel"
+        marker.map = mapView
+        mapView?.camera = GMSCameraPosition(target: location, zoom: 12.0, bearing: 0, viewingAngle: 0)
     }
     
     @IBAction func menuButtonPressed(_ sender: AnyObject) {

@@ -49,6 +49,8 @@ class Product: NSObject, NSCoding {
     var availableQuantity: String?
     var imageUrl: String?
     var quantity: String?
+    var fullDescription: String?
+    var thumbImageURL: String?
     
     
     
@@ -71,6 +73,8 @@ class Product: NSObject, NSCoding {
         fontColor           = jsonDictionary["FontColor"] as? String
         availableQuantity   = jsonDictionary["Aqty"] as? String
         imageUrl            = jsonDictionary["MainImage"] as? String
+        fullDescription     = jsonDictionary["FullDescription"] as? String
+        thumbImageURL       = jsonDictionary["thumbImage"] as? String
     }
     
     func encode(with aCoder: NSCoder) {

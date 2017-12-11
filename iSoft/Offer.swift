@@ -10,36 +10,46 @@ import UIKit
 import Cache
 
 class Offer: NSObject, NSCoding {
-    var id: String!
-    var desription: String!
-    var originalPrice: String!
-    var totalPrice: String!
-    var discountRate: String!
+    var id: String?
+    var desription: String?
+    var originalPrice: String?
+    var totalPrice: String?
+    var discountRate: String?
     var mainImage: String?
-    static let config = Config(
+    
+    static let diskConfig = DiskConfig(
+        // The name of disk storage, this will be used as folder name within directory
+        name: "Offers",
         // Expiry date that will be applied by default for every added object
-        // if it's not overridden in the add(key: object: expiry: completion:) method
-        expiry: .date(Date().addingTimeInterval(100000)),
-        /// The maximum number of objects in memory the cache should hold
-        memoryCountLimit: 0,
-        /// The maximum total cost that the cache can hold before it starts evicting objects
-        memoryTotalCostLimit: 0,
-        /// Maximum size of the disk cache storage (in bytes)
-        maxDiskSize: 10000,
-        // Where to store the disk cache. If nil, it is placed in an automatically generated directory in Caches
-        cacheDirectory: NSSearchPathForDirectoriesInDomains(.documentDirectory,
-                                                            FileManager.SearchPathDomainMask.userDomainMask,
-                                                            true).first! + "/cache-in-documents"
+        // if it's not overridden in the `setObject(forKey:expiry:)` method
+        expiry: .date(Date().addingTimeInterval(2*3600)),
+        // Maximum size of the disk cache storage (in bytes)
+        maxSize: 10000,
+        // Where to store the disk cache. If nil, it is placed in `cachesDirectory` directory.
+        directory: try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask,
+                                                appropriateFor: nil, create: true).appendingPathComponent("MyPreferences"),
+        // Data protection is used to store files in an encrypted format on disk and to decrypt them on demand
+        protectionType: .complete
     )
-    static let hybrid = HybridCache(name: "offers", config: config)
+    static let memoryConfig = MemoryConfig(
+        // Expiry date that will be applied by default for every added object
+        // if it's not overridden in the `setObject(forKey:expiry:)` method
+        expiry: .date(Date().addingTimeInterval(2*60)),
+        /// The maximum number of objects in memory the cache should hold
+        countLimit: 50,
+        /// The maximum total cost that the cache can hold before it starts evicting objects
+        totalCostLimit: 0
+    )
+    
+    static let hybrid = try? Storage(diskConfig: diskConfig, memoryConfig: memoryConfig)
 
     init(withDictionary jsonDictionary: Dictionary<String, AnyObject>) {
-        self.id = jsonDictionary["OfferID"] as! String!
-        self.desription = jsonDictionary["OfferDesc"] as! String!
-        self.originalPrice = jsonDictionary["OfferOriginalPrice"] as! String!
-        self.totalPrice = jsonDictionary["OfferTotalPrice"] as! String!
-        self.discountRate = jsonDictionary["DiscountRate"] as! String!
-        self.mainImage = jsonDictionary["MainImage"] as! String?
+        self.id = jsonDictionary["OfferID"] as? String
+        self.desription = jsonDictionary["OfferDesc"] as? String
+        self.originalPrice = jsonDictionary["OfferOriginalPrice"] as? String
+        self.totalPrice = jsonDictionary["OfferTotalPrice"] as? String
+        self.discountRate = jsonDictionary["DiscountRate"] as? String
+        self.mainImage = jsonDictionary["MainImage"] as? String
     }
     
     override init() {
@@ -66,25 +76,22 @@ class Offer: NSObject, NSCoding {
     
     static func saveOffers(offers: Array<Offer>) {
         let data = NSKeyedArchiver.archivedData(withRootObject: offers)
-        do {
-            try hybrid.addObject(data, forKey: "offerData")
-        } catch let error as Error {
-            print(error.localizedDescription)
-        }
+        hybrid?.async.setObject(data, forKey: "offerData", completion: {_ in })
+
     }
     
     static func getOffers(withClosure completionClusore: @escaping (Array<Offer>) ->()) {
-        hybrid.async.object(forKey: "offerData") { (data: Data?) in
+        hybrid?.async.object(ofType: Data.self, forKey: "offerData", completion: { (result) in
             DispatchQueue.main.async {
-                if data != nil {
-                    let array: Array<Offer> = NSKeyedUnarchiver.unarchiveObject(with: data!) as! Array<Offer>
+                switch result {
+                case .value(let data):
+                    let array: [Offer] = NSKeyedUnarchiver.unarchiveObject(with: data) as! [Offer]
                     completionClusore(array)
-                } else {
-                    completionClusore([])
+                case .error(let error):
+                    print(error)
                 }
             }
-            
-        }
+        })
     }
     
     

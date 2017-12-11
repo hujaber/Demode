@@ -16,10 +16,14 @@ struct APIUrl {
     static let mainURL          = "http://www.demode-lb.net"
     static let productImagesURL = "/ProductImages.php"
     
+    static let addOrder         = "/iOSAddOrder.php"
+    static let uploadItems      = "/iOSUpload_items.php"
+    
     
     static let newsURL          = "/NewsList.php"
     static let loginURL         = "/login.php"
     static let registerURL      = "/register.php"
     static let auctionURL       = "/Auction.php"
     static let auctionDetailsURL = "/AuctionItems.php"
+    static let verifyURL        = "/iOSVerify.php"
 }

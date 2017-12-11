@@ -11,7 +11,7 @@ import UIKit
 class MoreViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    let tableValues = ["Shopping Bag", "Wishlist", "Find a Store", "About us", "Logout"]
+    let tableValues = ["Shopping Bag", "Wishlist", "Find a Store", "About us", User.getCurrentUser() != nil ? "Logout" : "Go to Main Screen"]
     let cellId = "MoreCell"
 
     override func viewDidLoad() {
@@ -55,10 +55,31 @@ class MoreViewController: BaseViewController, UITableViewDataSource, UITableView
             let selectedViewController = storyboard?.instantiateViewController(withIdentifier: "AboutView") as! UINavigationController
             navigationController?.pushViewController(selectedViewController.topViewController!, animated: true)
         case 4:
-            let loginScreen = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainView") as! UINavigationController
-            let appDelegate = getAppDelegate()
-            appDelegate.window?.rootViewController = loginScreen
-            UserDefaultsHelper.removeAllKeys()
+            
+            if User.getCurrentUser() != nil {
+                let alertController = UIAlertController(title: nil, message: "Are you sure you want to logout?", preferredStyle: .alert)
+                let okayAction = UIAlertAction(title: "Okay", style: .default, handler: { (action) in
+                    let loginScreen = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainView") as! UINavigationController
+                    let appDelegate = self.getAppDelegate()
+                    self.navigationController?.popToRootViewController(animated: false)
+                    self.tabBarController?.selectedIndex = 0
+                    appDelegate.window?.rootViewController = loginScreen
+                    UserDefaultsHelper.removeAllKeys()
+                })
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                alertController.addAction(okayAction)
+                alertController.addAction(cancelAction)
+                present(alertController, animated: true, completion: nil)
+            } else {
+                let loginScreen = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainView") as! UINavigationController
+                let appDelegate = self.getAppDelegate()
+                self.navigationController?.popToRootViewController(animated: false)
+                self.tabBarController?.selectedIndex = 0
+                appDelegate.window?.rootViewController = loginScreen
+                UserDefaultsHelper.removeAllKeys()
+            }
+
             
         default:
             print("OK")

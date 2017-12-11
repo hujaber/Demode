@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 import Spring
 
-class BasketViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class BasketViewController: BaseViewController {
     
     @IBOutlet weak var orderNowButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
@@ -60,31 +60,16 @@ class BasketViewController: BaseViewController, UITableViewDelegate, UITableView
     
     //MARK: - TableView
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        guard tableValues?.count != nil else {
-            return 0
-        }
-        return (tableValues!.count)
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BasketCell") as! BasketCell
-        cell.setCellWithBasketItem(product: (tableValues?[indexPath.section])!)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        showAlertViewWithProduct(product: tableValues?[indexPath.section])
-    }
+
     
     
     @IBAction func toCheckoutAction(_ sender: UIButton) {
-        performSegue(withIdentifier: "segueToOrder", sender: self)
+        if User.getCurrentUser() == nil {
+            self.showAlert(title: "", message: "Please register/login in order to make orders")
+        } else {
+            performSegue(withIdentifier: "segueToOrder", sender: self)
+
+        }
     }
     
 
@@ -125,7 +110,7 @@ class BasketViewController: BaseViewController, UITableViewDelegate, UITableView
         alertView.layer.borderColor = UIColor.black.cgColor
         alertView.layer.borderWidth = 0.5
         alertTitleLabel.text = product.title
-        alertPriceLabel.text = product.oldPrice
+        alertPriceLabel.text = product.oldPrice?.addDollarSign()
         alertQuantityTextField.text = product.quantity!
         alertProduct = product
         if let prodURL = product.imageUrl {
@@ -191,6 +176,44 @@ class BasketViewController: BaseViewController, UITableViewDelegate, UITableView
     
 }
 
+extension BasketViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        guard tableValues?.count != nil else {
+            return 0
+        }
+        return (tableValues!.count)
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BasketCell") as! BasketCell
+        cell.setCellWithBasketItem(product: (tableValues?[indexPath.section])!)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        showAlertViewWithProduct(product: tableValues?[indexPath.section])
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let product = tableValues![indexPath.row]
+            UserDefaultsHelper.removeBasketItem(product: product)
+            self.tableValues?.remove(at: indexPath.row)
+            self.tableView.reloadData()
+        }
+    }
+
+}
+
 class BasketCell: UITableViewCell {
     
     @IBOutlet weak var productImageView: UIImageView!
@@ -202,8 +225,16 @@ class BasketCell: UITableViewCell {
     func setCellWithBasketItem(product: Product) {
         productTitle.text = product.title
         quantityLabel.text = product.quantity!
-        itemPriceLabel.text = product.oldPrice
-        totalPriceLabel.text = "0000"
+        itemPriceLabel.text = product.oldPrice?.addDollarSign()
+        if let price = product.oldPrice, let quantity = product.quantity {
+            let priceF = Float(price)
+            let quant = Float(quantity)
+            if let floatPrice = priceF, let floatQuan = quant {
+                let final = floatQuan * floatPrice
+                totalPriceLabel.text = "\(final)".addDollarSign()
+            }
+
+        }
         if let prodURL = product.imageUrl {
             let url = URL(string: APIUrl.mainURL + prodURL)
             let resource = ImageResource.init(downloadURL: url!)
@@ -215,15 +246,4 @@ class BasketCell: UITableViewCell {
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 

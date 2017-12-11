@@ -11,6 +11,7 @@ import UIKit
 class UserDefaultsHelper: NSObject {
     private static let basketKey = "basketArray"
     private static let wishListKey = "wishListArray"
+    private static let randomCodeKey = "kRandomCode"
     private static var basketArray =  Array<Product>()
     private static var wishListArray = Array<Product>()
     
@@ -36,6 +37,15 @@ class UserDefaultsHelper: NSObject {
         return (true, nil)
     }
     
+    static func saveRandomGeneratedCode(string: String) {
+        UserDefaults.standard.set(string, forKey: randomCodeKey)
+    }
+    
+    static func getRandomGeneratedCode() -> String {
+        let key = UserDefaults.standard.string(forKey: randomCodeKey)
+        return key!
+    }
+    
     
     class func saveProductToWishList(product: Product) -> (Bool, String?) {
         if isKeyPresentInUserDefaults(key: wishListKey) {
@@ -59,15 +69,6 @@ class UserDefaultsHelper: NSObject {
     
     class func removeProductFromWishList(product: Product) -> (Bool, String?) {
         if isKeyPresentInUserDefaults(key: wishListKey) {
-            /*
-             let sequence = [1, 2, 3, 4]
-             var iterator = sequence.makeIterator()
-             
-             // next() will return the next element, or nil if it's reached the end of the sequence.
-             while let element = iterator.next() {
-             // do something with the element
-             }
-             */
             let wishListData = UserDefaults.standard.object(forKey: wishListKey)
             wishListArray = NSKeyedUnarchiver.unarchiveObject(with: wishListData as! Data) as! Array<Product>
             wishListArray = wishListArray.filter({ (myproduct) -> Bool in
@@ -80,6 +81,22 @@ class UserDefaultsHelper: NSObject {
             return (false, "An error occured while removing the item from favorites.")
         }
     }
+    @discardableResult
+    static func removeBasketItem(product: Product) -> (Bool, String?) {
+        if isKeyPresentInUserDefaults(key: basketKey) {
+            let basketData = UserDefaults.standard.object(forKey: basketKey)
+            basketArray = NSKeyedUnarchiver.unarchiveObject(with: basketData as! Data) as! [Product]
+            basketArray = basketArray.filter({ (myproduct) -> Bool in
+                myproduct.id! != product.id!
+            })
+            let basketDataZ = NSKeyedArchiver.archivedData(withRootObject: basketArray)
+            UserDefaults.standard.set(basketDataZ, forKey: basketKey)
+            return (true, nil)
+            
+        } else {
+            return (false, "Product not found")
+        }
+    }
     
     class func getBasketProducts() -> Array<Product>? {
         if isKeyPresentInUserDefaults(key: basketKey) {
@@ -88,6 +105,10 @@ class UserDefaultsHelper: NSObject {
         } else {
             return nil
         }
+    }
+    
+    static func deleteBasket() {
+        UserDefaults.standard.removeObject(forKey: basketKey)
     }
     
     class func getWishlistProducts() -> Array<Product>? {

@@ -167,16 +167,33 @@ class APIRequests: NSObject {
         }
     }
     
-    class func getRequest(urlString url: String, parameters: Parameters, method: HTTPMethod, completion: @escaping (Bool, Error? ,String?, DataResponse<Any>?) ->()) {
+    class func getRequest(urlString url: String, parameters: Parameters, method: HTTPMethod = .get, completion: @escaping (Bool, Error?, String?, DataResponse<Any>?) ->()) {
         Alamofire.request(url, method: method, parameters: parameters).responseJSON { (jsonResponse) in
+            print(jsonResponse)
             if let JSON = jsonResponse.result.value as! [String: AnyObject]! {
                 print(JSON)
-                let error = JSON["error"] as! Bool
-                if (error) {
+                let error = JSON["error"] as? Bool
+                if error! {
                     completion(false, jsonResponse.result.error,JSON["error_msg"] as? String, nil)
                     
                 } else {
                     completion(true, nil, nil, jsonResponse)
+                }
+            }
+        }
+    }
+    
+    static func postRequest(urlString url: String, parameters: Parameters?, method: HTTPMethod = .post, headers: HTTPHeaders?, completion: @escaping (Bool, Error?, String?, DataResponse<Any>?) -> ()) {
+
+        
+        Alamofire.request(url, method: method, parameters: parameters, encoding: URLEncoding.httpBody, headers: headers).responseJSON { (response) in
+            print(response)
+            if let JSON = response.result.value as? [String : Any] {
+                let success = JSON["success"] as! String
+                if success == "1" {
+                    completion(true, nil, nil, response)
+                } else {
+                    completion(false, nil, nil, nil)
                 }
             }
         }
@@ -200,12 +217,13 @@ class APIRequests: NSObject {
         }
     }
     
-    class func register(fullname: String, email: String, phoneNumber: String, password: String, completion: @escaping (Bool, Error?, String?) -> ()) {
+    class func register(fullname: String, email: String, phoneNumber: String, password: String, randomCode: String, completion: @escaping (Bool, Error?, String?) -> ()) {
         let parameters: Parameters = [
-            "name": fullname,
+            "fname": fullname,
             "password": password,
             "email"  : email,
-            "phone"  : phoneNumber
+            "phone"  : phoneNumber,
+            "random" : randomCode
         ]
         getRequest(urlString: baseURL.appending(APIUrl.registerURL), parameters: parameters, method: .post) { (success, error, errorMessage, response) in
             if (success) {
@@ -235,6 +253,8 @@ class APIRequests: NSObject {
                         completion(false, response.result.error, nil, nil)
                     }
                 }
+            } else {
+                completion(false, response.result.error, nil, nil)
             }
         }
     }
@@ -282,9 +302,53 @@ class APIRequests: NSObject {
             }
         }
     }
-
-
     
+    static func verifyEmail(email: String, completion: @escaping (Bool, Error?, String?) -> ()) {
+        var params = parameters
+        params["email"] = email
+        let urlString = myBaseURL
+        getRequest(urlString: urlString.appending(APIUrl.verifyURL), parameters: params, method: .get) { (success, error, errorMessage, response) in
+            completion(success, error, nil)
+        }
+    }
     
+    static func addOrder(params: [String : Any], completion: @escaping (Bool, Error?, String?) -> ()) {
+        var paramz = parameters
+        paramz.merge(dict: params)
+        let urlString = myBaseURL.appending(APIUrl.addOrder)
+        postRequest(urlString: urlString, parameters: paramz, headers: nil) { (success, error, errorMessage, response) in
+            if success {
+                if let json = response?.result.value as? [String : Any] {
+                    completion(true, nil, (json["orderId"] as! Int).toString())
+                } else {
+                    completion(false, nil, nil)
+                }
+            } else {
+                completion(false, nil, nil)
+            }
+        }
+        
+    }
+    
+    static func uploadItems(orderId: String, orderArray: [[String: Any]], completion: @escaping (Bool, Error?, String?) -> ()) {
+        var params = parameters
+        params["order_id"] = orderId
+        params["order_jsn"] = orderArray
+        let urlString = myBaseURL.appending(APIUrl.uploadItems)
+        postRequest(urlString: urlString, parameters: params, headers: nil) { (success, error, errorString, response) in
+            if success {
+                if let JSON = response?.result.value as? [String : Any] {
+                    if JSON["success"] as? String == "1" {
+                        completion(true, nil, nil)
+                    } else {
+                        completion(false, nil, nil)
+                    }
+                } else {
+                    completion(false, nil, nil)
+                }
+            }
+        }
+        
+    }
 }
 

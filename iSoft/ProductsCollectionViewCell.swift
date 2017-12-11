@@ -14,6 +14,12 @@ protocol ProductCellProtocol {
     func addToFavorites(product: Product)
 }
 
+extension String {
+     func addDollarSign() -> String {
+        return "$" + self
+    }
+}
+
 class ProductsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
@@ -27,13 +33,16 @@ class ProductsCollectionViewCell: UICollectionViewCell {
     public func fillCellWithProduct(product: Product) {
         cellProduct = product
         titleLabel.text = product.title
-        priceLabel.text = product.salesPrice
+        priceLabel.text = product.salesPrice!.addDollarSign()
+        
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.lightGray.cgColor
         self.layer.cornerRadius = 0
         backgroundColor = UIColor.white
-        if product.imageUrl != nil {
-            let urlString = APIUrl.mainURL.appending(product.imageUrl!)
+        imageView.contentMode = .scaleAspectFill
+        
+        if let thumbImgURL = product.thumbImageURL {
+            let urlString = APIUrl.mainURL.appending(thumbImgURL)
             let url = URL(string: urlString)!
             let resource = ImageResource.init(downloadURL: url)
             imageView.kf.indicatorType = .activity
