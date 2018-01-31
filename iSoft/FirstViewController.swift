@@ -70,7 +70,7 @@ class FirstViewController: BaseViewController {
         APIRequests.login(with: email!, password: password!) { (success, error, errorMessage, user) in
             self.hideLoader()
             if (!success) {
-                self.showAlert(title: "", message: errorMessage!)
+                self.showAlert(title: "", message: "Something went wrong")
             } else {
                 let tabBar: UITabBarController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CenterView") as! UITabBarController
                 self.getAppDelegate().window?.rootViewController = tabBar

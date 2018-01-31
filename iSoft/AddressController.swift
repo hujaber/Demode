@@ -167,6 +167,7 @@ class AddressController: BaseViewController {
                             if success {
                                 self.showAlert(title: "Order Complete", message: "")
                                 UserDefaultsHelper.deleteBasket()
+                                self.navigationController?.popToRootViewController(animated: true)
                             }
                         })
                     }

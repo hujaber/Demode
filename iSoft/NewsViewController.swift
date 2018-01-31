@@ -16,6 +16,11 @@ class NewsViewController: BaseViewController, UITableViewDelegate, UITableViewDa
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = true
+            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        }
+        navigationItem.title = "News"
         setupTableView()
         showLoader()
         APIRequests.getNews { (success, error, errorMsg, result) in

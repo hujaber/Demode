@@ -50,7 +50,6 @@ class APIRequests: NSObject {
                         } else {
                             successBlock([], true, nil)
                         }
-
                     } else {
                         successBlock([], false, response.result.error);
                     }
@@ -172,13 +171,14 @@ class APIRequests: NSObject {
             print(jsonResponse)
             if let JSON = jsonResponse.result.value as! [String: AnyObject]! {
                 print(JSON)
-                let error = JSON["error"] as? Bool
-                if error! {
-                    completion(false, jsonResponse.result.error,JSON["error_msg"] as? String, nil)
+                if let error = JSON["error"] as? Bool {
+                    if error {
+                        completion(false, jsonResponse.result.error,JSON["error_msg"] as? String, nil)
+                    } else {
+                        completion(true, nil, nil, jsonResponse)
+                    }
                     
-                } else {
-                    completion(true, nil, nil, jsonResponse)
-                }
+                } else { completion(false, nil, nil, nil) }
             }
         }
     }
@@ -200,7 +200,7 @@ class APIRequests: NSObject {
     }
     
     class func login(with username: String, password: String, completion: @escaping (Bool, Error?, String?, User?) -> ()) {
-        getRequest(urlString: baseURL.appending(APIUrl.loginURL), parameters: ["email": username, "password": password], method: .post) { (success, error, errorMessage, response) in
+        getRequest(urlString: myBaseURL.appending(APIUrl.loginURL), parameters: ["email": username, "password": password], method: .post) { (success, error, errorMessage, response) in
             if (!success) {
                 completion(false, error, errorMessage, nil)
             } else {
@@ -212,7 +212,6 @@ class APIRequests: NSObject {
                 } else {
                     completion(false, nil, nil, nil)
                 }
-
             }
         }
     }
@@ -225,9 +224,18 @@ class APIRequests: NSObject {
             "phone"  : phoneNumber,
             "random" : randomCode
         ]
-        getRequest(urlString: baseURL.appending(APIUrl.registerURL), parameters: parameters, method: .post) { (success, error, errorMessage, response) in
+        getRequest(urlString: myBaseURL.appending(APIUrl.registerURL), parameters: parameters, method: .post) { (success, error, errorMessage, response) in
             if (success) {
-                completion(success, nil, nil)
+                if let JSON = response?.result.value as? [String : Any] {
+                    let userDictionary = JSON["user"] as? [String : Any]
+                    if let userDic = userDictionary {
+                        let user = User(jsonDictionary: userDic as Dictionary<String, AnyObject>)
+                        User.saveUser(user: user)
+                        completion(true, nil, nil)
+                    }
+                } else {
+                    completion(false, nil, nil)
+                }
             } else {
                 completion(false, error, errorMessage)
             }
@@ -327,7 +335,6 @@ class APIRequests: NSObject {
                 completion(false, nil, nil)
             }
         }
-        
     }
     
     static func uploadItems(orderId: String, orderArray: [[String: Any]], completion: @escaping (Bool, Error?, String?) -> ()) {
@@ -348,7 +355,6 @@ class APIRequests: NSObject {
                 }
             }
         }
-        
     }
 }
 

@@ -22,13 +22,17 @@ class ProductsViewController: BaseViewController, UICollectionViewDelegate, UICo
     var screenSize: CGRect!
     var screenWidth: CGFloat!
     var screenHeight: CGFloat!
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    var isSearching: Bool = false
+    var searchResults = [Product]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addSearchBar()
         print("Pid= \(mainCatID!) and Lid= \(subCatID!)")
         collectionView.delegate = self
         collectionView.dataSource = self
-        
         
         screenSize = UIScreen.main.bounds
         screenWidth = screenSize.width
@@ -41,9 +45,34 @@ class ProductsViewController: BaseViewController, UICollectionViewDelegate, UICo
         collectionView.collectionViewLayout = layout
         collectionView!.backgroundColor = UIColor.white
         collectionView.bounces = true
-        
-        
         getProducts()
+    }
+    
+    func addSearchBar() {
+        searchController.searchBar.delegate = self
+        searchController.searchBar.tintColor = UIColor.white
+        searchController.searchBar.barTintColor = UIColor.myBlueColor()
+        searchController.dimsBackgroundDuringPresentation = false
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = true
+            navigationItem.searchController = searchController
+            self.navigationItem.hidesSearchBarWhenScrolling = false
+            navigationItem.title = "Products"
+            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+            navigationController?.navigationBar.barTintColor = UIColor.myBlueColor()
+            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "Search products", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white]
+        } else {
+            self.searchController.hidesNavigationBarDuringPresentation = false;
+            self.definesPresentationContext = false;
+            navigationItem.titleView = searchController.searchBar
+            title = "Products"
+            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "Search products", attributes: [NSAttributedStringKey.foregroundColor: UIColor.myBlueColor()])
+            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.myBlueColor()]
+        }
+        
+
+
     }
     
     func getProducts() {
@@ -62,20 +91,34 @@ class ProductsViewController: BaseViewController, UICollectionViewDelegate, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return values.count
+        if isSearching {
+            return searchResults.count
+        } else {
+            return values.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        var product: Product!
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductsCell", for: indexPath) as! ProductsCollectionViewCell
         cell.delegate = self
-        let product = self.values[indexPath.row]
+        if isSearching {
+            product = self.searchResults[indexPath.row]
+        } else {
+            product = self.values[indexPath.row]
+        }
         cell.fillCellWithProduct(product: product)
-        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let product = values[indexPath.row]
+        //let product = values[indexPath.row]
+        var product: Product!
+        if isSearching {
+            product = self.searchResults[indexPath.row]
+        } else {
+            product = self.values[indexPath.row]
+        }
         showLoader()
         APIRequests.getProductImages(withProductId: product.id!) { (success, error, images) in
             self.hideLoader()
@@ -85,6 +128,10 @@ class ProductsViewController: BaseViewController, UICollectionViewDelegate, UICo
                 photo.shouldCachePhotoURLImage = true
                 if product.itemDescription != nil {
                     photo.caption = product.itemDescription!
+                } else {
+                    if let title = product.title, let price = product.salesPrice {
+                        photo.caption = title + "\n" + "$" + price
+                    }
                 }
 
                 myImages.append(photo)
@@ -96,12 +143,18 @@ class ProductsViewController: BaseViewController, UICollectionViewDelegate, UICo
                     photo.shouldCachePhotoURLImage = true
                     if prodImage.imageDescription != nil {
                         photo.caption = prodImage.imageDescription
+                    } else {
+                        if let title = product.title, let price = product.salesPrice {
+                            photo.caption = title + "\n" + "$" + price
+                        }
                     }
 
                     myImages.append(photo)
                 }
 
             }
+            SKPhotoBrowserOptions.displayAction = true
+            SKPhotoBrowserOptions.bounceAnimation = true
             let browser = SKPhotoBrowser(photos: myImages)
             browser.initializePageIndex(0)
             
@@ -116,7 +169,7 @@ class ProductsViewController: BaseViewController, UICollectionViewDelegate, UICo
     
     func addToBasket(product: Product) {
         if UserDefaultsHelper.saveProductsToBasket(product: product).0 {
-            SVProgressHUD.setMaximumDismissTimeInterval(1.5)
+            SVProgressHUD.setMaximumDismissTimeInterval(0.5)
             SVProgressHUD.showSuccess(withStatus: "Added to basket")
         } else {
             SVProgressHUD.showError(withStatus: UserDefaultsHelper.saveProductsToBasket(product: product).1!)
@@ -132,5 +185,55 @@ class ProductsViewController: BaseViewController, UICollectionViewDelegate, UICo
                 showAlert(title: "", message: UserDefaultsHelper.removeProductFromWishList(product: product).1!)
             }
         }
+    }
+}
+
+extension ProductsViewController: UISearchBarDelegate {
+    func filterContentForSearchText(searchText: String) {
+        searchResults = self.values.filter({ (product) -> Bool in
+            return product.title!.localizedStandardContains(searchText)
+        })
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.count > 0 {
+            isSearching = true
+            filterContentForSearchText(searchText: searchText)
+            collectionView.reloadData()
+        } else {
+            isSearching = false
+            collectionView.reloadData()
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        isSearching = false
+        searchBar.resignFirstResponder()
+        searchBar.clear()
+        collectionView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        isSearching = true
+        view.endEditing(true)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        if let count = searchBar.text?.count {
+            if count == 0 {
+                isSearching = false
+                collectionView.reloadData()
+            } else {
+                isSearching = true
+                collectionView.reloadData()
+            }
+        }
+    }
+    
+}
+
+extension UISearchBar {
+    func clear() {
+        self.text = nil
     }
 }

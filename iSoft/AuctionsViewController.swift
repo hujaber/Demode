@@ -15,6 +15,11 @@ class AuctionsViewController: BaseViewController, UITableViewDelegate, UITableVi
     var selectedItem: AuctionItem?
 
     override func viewDidLoad() {
+        
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = true
+            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        }
         super.viewDidLoad()
         let view = UIView(frame: self.view.frame)
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 100))
@@ -26,8 +31,7 @@ class AuctionsViewController: BaseViewController, UITableViewDelegate, UITableVi
         label.center = view.center
         self.view.addSubview(view)
         tableView.isHidden = true
-//        setupTableView()
-//        getAuctions()
+
     }
     
     func getAuctions() {

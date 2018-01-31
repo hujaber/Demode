@@ -14,6 +14,8 @@ import Fabric
 import Crashlytics
 import Firebase
 import UserNotifications
+import IQKeyboardManager
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -43,7 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             application.registerUserNotificationSettings(settings)
         }
         application.registerForRemoteNotifications()
-        
+        IQKeyboardManager.shared().isEnabled = true
+        IQKeyboardManager.shared().shouldResignOnTouchOutside = true
         return true
     }
     
@@ -57,8 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         GMSServices.provideAPIKey(googleMapsAPIKey)
         Fabric.with([Crashlytics.self])
         UIApplication.shared.statusBarStyle = .lightContent
-
-
+        //IQKeyboardManager.sharedManager().enable = true
         return true
     }
     

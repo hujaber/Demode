@@ -11,11 +11,15 @@ import UIKit
 class MoreViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    let tableValues = ["Shopping Bag", "Wishlist", "Find a Store", "About us", User.getCurrentUser() != nil ? "Logout" : "Go to Main Screen"]
+    let tableValues = ["Shopping Bag", "Wishlist", "Find a Store", "About us","Terms & Conditions", User.getCurrentUser() != nil ? "Logout" : "Go to Main Screen"]
     let cellId = "MoreCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = true
+            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        }
         setupTableView()
         title = "More"
 
@@ -55,6 +59,9 @@ class MoreViewController: BaseViewController, UITableViewDataSource, UITableView
             let selectedViewController = storyboard?.instantiateViewController(withIdentifier: "AboutView") as! UINavigationController
             navigationController?.pushViewController(selectedViewController.topViewController!, animated: true)
         case 4:
+            let termsController = storyboard?.instantiateViewController(withIdentifier: "TermsView") as! UINavigationController
+            navigationController?.pushViewController(termsController.topViewController!, animated: true)
+        case 5:
             
             if User.getCurrentUser() != nil {
                 let alertController = UIAlertController(title: nil, message: "Are you sure you want to logout?", preferredStyle: .alert)

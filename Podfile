@@ -15,10 +15,10 @@ target 'iSoft' do
 	pod 'Kingfisher'
 	pod 'SKPhotoBrowser'
 	pod 'SVProgressHUD'
-	pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift3'	
+	pod 'Spring'	
 	pod 'Firebase/Core'
 	pod 'SCLAlertView'
 	pod 'Firebase/Messaging'
-
+	pod 'IQKeyboardManager' 
 
 end

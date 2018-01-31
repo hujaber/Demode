@@ -24,6 +24,7 @@ class TabBarViewController: UITabBarController {
         
         (tabBar.items![0] as UITabBarItem).image = #imageLiteral(resourceName: "auction")
         (tabBar.items![0] as UITabBarItem).title = "Auctions"
+        (tabBar.items![0] as UITabBarItem).selectedImage = #imageLiteral(resourceName: "auction")
 
         
         (tabBar.items![1] as UITabBarItem).image = #imageLiteral(resourceName: "tabStore")
@@ -34,6 +35,6 @@ class TabBarViewController: UITabBarController {
         
         (tabBar.items![3] as UITabBarItem).image = #imageLiteral(resourceName: "Menu")
         (tabBar.items![3] as UITabBarItem).title = "More"
-
+        self.selectedIndex = 1
     }
 }

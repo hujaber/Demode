@@ -73,7 +73,7 @@ class PrepareForCheckoutViewController: BaseViewController, UITableViewDataSourc
         label.textColor = .white
         var totalPrice: Float = 0
         for product in tableValues {
-            if let price = product.oldPrice {
+            if let price = product.salesPrice {
                 let floatPrice = Float(price)
                 if let final = floatPrice {
                     totalPrice = totalPrice + (final * product.quantity!.toFloat())

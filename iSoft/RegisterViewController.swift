@@ -81,7 +81,11 @@ class RegisterViewController: BaseViewController {
                 if (success) {
                     self.performSegue(withIdentifier: "segueToCodeController", sender: self)
                 } else {
-                    self.showAlert(title: "", message: errorMsg!)
+                    if let errorMessage = errorMsg {
+                        self.showAlert(title: "", message: errorMessage)
+                    } else {
+                        self.showAlert(title: "", message: "Something went wrong.")
+                    }
                 }
             })
         } else {

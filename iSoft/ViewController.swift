@@ -22,13 +22,40 @@ class ViewController: BaseViewController, UITableViewDelegate, UITableViewDataSo
     var selectedMainID: String?
     var selectedSubID: String?
     var selectedCategoryName: String?
+    let searchController = UISearchController(searchResultsController: nil)
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = true
+            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        }
+        //addSearchBar()
         setupTableView()
         getOffers()
         getMainCategories()
+    }
+    
+    func addSearchBar() {
+        searchController.searchBar.delegate = self
+        searchController.searchBar.tintColor = UIColor.white
+        searchController.searchBar.barTintColor = UIColor.myBlueColor()
+        
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = true
+            navigationItem.searchController = searchController
+            self.navigationItem.hidesSearchBarWhenScrolling = false
+            //navigationItem.title = "Categories"
+            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+            navigationController?.navigationBar.barTintColor = UIColor.myBlueColor()
+        } else {
+            navigationItem.titleView = searchController.searchBar
+        }
+        
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "Search products", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white]
+        
     }
     
     //MARK: - API Requests
@@ -252,3 +279,7 @@ class MainCategoryCell: UITableViewCell {
     }
 }
 
+
+extension ViewController: UISearchBarDelegate {
+    
+}

@@ -35,6 +35,11 @@ class BasketViewController: BaseViewController {
         super.viewDidLoad()
         setupTableView()
         prepareButton()
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = true
+            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        }
+        navigationItem.title = "Basket"
     }
     
     func setupTableView() {
@@ -110,7 +115,7 @@ class BasketViewController: BaseViewController {
         alertView.layer.borderColor = UIColor.black.cgColor
         alertView.layer.borderWidth = 0.5
         alertTitleLabel.text = product.title
-        alertPriceLabel.text = product.oldPrice?.addDollarSign()
+        alertPriceLabel.text = product.salesPrice?.addDollarSign()
         alertQuantityTextField.text = product.quantity!
         alertProduct = product
         if let prodURL = product.imageUrl {
@@ -158,6 +163,11 @@ class BasketViewController: BaseViewController {
     
     @IBAction func alertPlusAction(_ sender: UIButton) {
         var quantity = Int(alertQuantityTextField.text!)
+        if let availableQuantity = alertProduct?.availableQuantity {
+            if quantity! >= Int(availableQuantity)! {
+                return
+            }
+        }
         quantity! = quantity! + 1
         alertQuantityTextField.text = "\(quantity!)"
 
@@ -224,9 +234,13 @@ class BasketCell: UITableViewCell {
     
     func setCellWithBasketItem(product: Product) {
         productTitle.text = product.title
-        quantityLabel.text = product.quantity!
-        itemPriceLabel.text = product.oldPrice?.addDollarSign()
-        if let price = product.oldPrice, let quantity = product.quantity {
+        if let quantity = product.quantity {
+            quantityLabel.text = quantity
+        } else {
+            quantityLabel.text = nil
+        }
+        itemPriceLabel.text = product.salesPrice?.addDollarSign()
+        if let price = product.salesPrice, let quantity = product.quantity {
             let priceF = Float(price)
             let quant = Float(quantity)
             if let floatPrice = priceF, let floatQuan = quant {
